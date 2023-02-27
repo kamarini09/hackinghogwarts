@@ -32,7 +32,6 @@ function loadJSON() {
 
 function prepareObjects(jsonData) {
   jsonData.forEach((jsonObject) => {
-    // Then I come here and I create a new object with the cleaned data.
     const student = Object.create(Student);
     let everyName = createName(jsonObject.fullname.trim());
     //console.log(createName(jsonObject.fullname));
@@ -40,10 +39,13 @@ function prepareObjects(jsonData) {
     student.house = makeFirstCapital(jsonObject.house.trim()) ;
     
     
-    student.firstname = everyName.firstName;
-    student.middlename = everyName.middleName;
+    student.firstname = makeFirstCapital(everyName.firstName);
+    student.middlename = makeFirstCapital(everyName.middleName);
     student.nickname = everyName.nickName;
-    student.lastname = everyName.lastName;
+    student.lastname = makeFirstCapital(everyName.lastName);
+
+    student.image = `images/${everyName.lastName.toLowerCase()}_${everyName.firstName.charAt(0).toLowerCase()}.png`
+
 
 
     allStudents.push(student);
@@ -71,8 +73,10 @@ function displayStudent(student) {
   clone.querySelector("[data-field=nickName]").textContent = student.nickname;
   clone.querySelector("[data-field=lastName]").textContent = student.lastname;
 
-  clone.querySelector("[data-field=gender").textContent = student.gender;
-//   clone.querySelector("[data-field=image").textContent = student.image;
+  clone.querySelector("[data-field=gender]").textContent = student.gender;
+  clone.querySelector("#image").src = student.image;
+  //clone.querySelector('td[data-field="image"]>img').src = student.image;
+
   clone.querySelector("[data-field=house]").textContent = student.house;
 
 
@@ -87,11 +91,25 @@ function makeFirstCapital(x){
 return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
 }
 
+function makeNickNameCapital(x){
+    return x.substring(1).toLowerCase();
+    }
+
 function createName(fullname){
     let firstName = fullname.substring(0, fullname.indexOf(" "));
     let lastName = fullname.substring(fullname.lastIndexOf(" ")+1);
     let nickName;
     let middleName;
+   
+    //this is for the single name
+    const singleName = /[ ]/
+    let isSingleName = fullname.search(singleName);
+    if(isSingleName === -1){
+        firstName = fullname;
+        lastName = "";
+    }
+
+    //this is for the nickname
     const nic = /["]/;
     let isNick = fullname.search(nic);
     if (isNick === -1){
@@ -100,22 +118,7 @@ function createName(fullname){
       nickName = fullname.substring(isNick +1, fullname.lastIndexOf("\""));
       middleName = fullname.substring(fullname.indexOf(" ")+1, isNick -1);
     }
-    if(firstName === " "){
-        firstName = "";
-    }
-    if(middleName === " "){
-        middleName = "";
-    }
-   
-    if(lastName === " "){
-        lastName = "";
-    }
-
-   // return `firstName: ${firstName} / middleName: ${middleName} / nickName: ${nickName} / lastname: ${lastName}`
+    
     return {firstName , middleName , nickName , lastName}
   
   }
-
-
-
-//"harry kss kss \"kama\" potter"
