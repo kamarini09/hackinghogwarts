@@ -42,14 +42,11 @@ function prepareObjects(jsonData) {
     student.firstname = makeFirstCapital(everyName.firstName);
     student.middlename = makeFirstCapital(everyName.middleName);
     student.nickname = everyName.nickName;
-    student.lastname = makeFirstCapital(everyName.lastName);
+    student.lastname = makeLastNameCapital(everyName.lastName);
 
     student.image = `images/${everyName.lastName.toLowerCase()}_${everyName.firstName.charAt(0).toLowerCase()}.png`
-
-
-
     allStudents.push(student);
-  });
+  }); 
 
   displayList();
 }
@@ -91,9 +88,23 @@ function makeFirstCapital(x){
 return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
 }
 
-function makeNickNameCapital(x){
-    return x.substring(1).toLowerCase();
+    
+function makeLastNameCapital(x){
+    const hyp = /[-]/;
+    let hasHyphen = x.search(hyp);
+    if(hasHyphen === -1){
+      return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
+    }else{
+      let first = x.charAt(0).toUpperCase() + x.substring(1,hasHyphen).toLowerCase();
+      let second = x.charAt(hasHyphen+1).toUpperCase() + x.substring(hasHyphen+2).toLowerCase();
+      
+      return `${first}-${second}`
+    
     }
+
+    
+  }
+    
 
 function createName(fullname){
     let firstName = fullname.substring(0, fullname.indexOf(" "));
@@ -119,6 +130,15 @@ function createName(fullname){
       middleName = fullname.substring(fullname.indexOf(" ")+1, isNick -1);
     }
     
+    // if(middleName === ""){
+    //   return middleName = " "
+    // }
+    // if(nickName === " "){
+    //   return nickName = ""
+    // }
+    // if(lastName === " "){
+    //   return lastName = ""
+    // }
     return {firstName , middleName , nickName , lastName}
   
   }
