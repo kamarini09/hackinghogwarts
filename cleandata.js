@@ -34,20 +34,17 @@ function prepareObjects(jsonData) {
   jsonData.forEach((jsonObject) => {
     // Then I come here and I create a new object with the cleaned data.
     const student = Object.create(Student);
+    let everyName = createName(jsonObject.fullname.trim());
+    //console.log(createName(jsonObject.fullname));
     student.gender = jsonObject.gender;
     student.house = makeFirstCapital(jsonObject.house.trim()) ;
-   
-
-    // This is where I turn the fullname's value into an array with "split"
-    const text = jsonObject.fullname.split(" ");
-
-    // Now I have the extra info in an array.
-    // So I grab each array item and I store it in the allAnimals array in new properties
-    // student.firstname = text[0];
-    // student.lastname= text[2];
-    // student.middlename= text[2];
-    // student.nickname= text[2];
     
+    
+    student.firstname = everyName.firstName;
+    student.middlename = everyName.middleName;
+    student.nickname = everyName.nickName;
+    student.lastname = everyName.lastName;
+
 
     allStudents.push(student);
   });
@@ -69,10 +66,11 @@ function displayStudent(student) {
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
   // set clone data
-//   clone.querySelector("[data-field=firstname]").textContent = student.firstname;
-//   clone.querySelector("[data-field=lastname]").textContent = student.lastname;
-//   clone.querySelector("[data-field=middlename]").textContent = student.middlename;
-//   clone.querySelector("[data-field=nickname]").textContent = student.nickname;
+  clone.querySelector("[data-field=firstName]").textContent = student.firstname;
+  clone.querySelector("[data-field=middleName]").textContent = student.middlename;
+  clone.querySelector("[data-field=nickName]").textContent = student.nickname;
+  clone.querySelector("[data-field=lastName]").textContent = student.lastname;
+
   clone.querySelector("[data-field=gender").textContent = student.gender;
 //   clone.querySelector("[data-field=image").textContent = student.image;
   clone.querySelector("[data-field=house]").textContent = student.house;
@@ -89,4 +87,35 @@ function makeFirstCapital(x){
 return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
 }
 
-//return nickname = name.substring(name.indexOf(`"`)+1,name.lastIndexOf(`"`));
+function createName(fullname){
+    let firstName = fullname.substring(0, fullname.indexOf(" "));
+    let lastName = fullname.substring(fullname.lastIndexOf(" ")+1);
+    let nickName;
+    let middleName;
+    const nic = /["]/;
+    let isNick = fullname.search(nic);
+    if (isNick === -1){
+     middleName = fullname.substring(fullname.indexOf(" ")+1, fullname.lastIndexOf(" "));
+    }else{
+      nickName = fullname.substring(isNick +1, fullname.lastIndexOf("\""));
+      middleName = fullname.substring(fullname.indexOf(" ")+1, isNick -1);
+    }
+    if(firstName === " "){
+        firstName = "";
+    }
+    if(middleName === " "){
+        middleName = "";
+    }
+   
+    if(lastName === " "){
+        lastName = "";
+    }
+
+   // return `firstName: ${firstName} / middleName: ${middleName} / nickName: ${nickName} / lastname: ${lastName}`
+    return {firstName , middleName , nickName , lastName}
+  
+  }
+
+
+
+//"harry kss kss \"kama\" potter"
