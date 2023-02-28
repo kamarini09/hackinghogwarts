@@ -3,3 +3,9 @@ th,
 td {
   border: 1px solid;
 }
+
+[data-field="squad"] {
+  text-align: center;
+  cursor: pointer;
+  min-width: 2em;
+}

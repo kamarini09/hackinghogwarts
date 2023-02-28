@@ -16,7 +16,9 @@ const Student = {
     gender: "",
     image: "",
     house: "",
-    bloodstatus: ""
+    bloodstatus: "",
+    spuad: false,
+    prefect: false
 };
 function start() {
   console.log("ready");
@@ -40,24 +42,20 @@ function prepareObjects(jsonData) {
     //console.log(createName(jsonObject.fullname));
     student.gender = jsonObject.gender;
     student.house = makeFirstCapital(jsonObject.house.trim()) ;
-    
-    
     student.firstname = makeFirstCapital(everyName.firstName);
     student.middlename = makeFirstCapital(everyName.middleName);
     student.nickname = everyName.nickName;
     student.lastname = makeLastNameCapital(everyName.lastName);
-
     student.image = putImage(everyName.lastName , everyName.firstName);
-    
     student.bloodstatus = getBloodStatus(everyName.lastName);
-
+    
     allStudents.push(student);
   }); 
 
   displayList();
 }
  //--------------------------------VIEW--------------------------------
-function displayList() {
+ function displayList() {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
 
@@ -66,26 +64,39 @@ function displayList() {
 }
 
 function displayStudent(student) {
-   
   // create clone
   const clone = document.querySelector("template#student").content.cloneNode(true);
-
+  if(student.squad){
+    clone.querySelector("[data-field=squad]").textContent = "⭐";
+} else {
+    clone.querySelector("[data-field=squad]").textContent = "☆";
+}
   // set clone data
-  clone.querySelector("[data-field=firstName]").textContent = student.firstname;
-  clone.querySelector("[data-field=middleName]").textContent = student.middlename;
-  clone.querySelector("[data-field=nickName]").textContent = student.nickname;
-  clone.querySelector("[data-field=lastName]").textContent = student.lastname;
-  clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("#image").src = student.image;
+  clone.querySelector("[data-field=firstName").textContent = student.firstname;
+  clone.querySelector("[data-field=middleName]").textContent = student.middlename;
+  clone.querySelector("[data-field=nickName").textContent = student.nickname;
+  clone.querySelector("[data-field=lastName]").textContent = student.lastname;
+  clone.querySelector("[data-field=gender").textContent = student.gender;
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
+  clone.querySelector("[data-field=squad]").addEventListener(
+    `click`, addToSquad);
+    function addToSquad(){
+      if(student.bloodstatus ==="Pure Blood" || student.house ==="Slytherin"){
+        student.squad = !student.squad;
+       }else{
+         alert("you cannott")
+       }
   
-
+      
+      displayList();
+    };
+  
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
-
 
 
 //------------------------CONTROLER-----------------------------------
