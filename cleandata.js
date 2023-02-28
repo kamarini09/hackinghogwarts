@@ -1,4 +1,6 @@
 "use strict";
+import { getBloodStatus } from "./bloodstatus.js";
+
 
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
  
@@ -13,7 +15,8 @@ const Student = {
     nickName: "",
     gender: "",
     image: "",
-    house: ""
+    house: "",
+    bloodstatus: ""
 };
 function start() {
   console.log("ready");
@@ -45,6 +48,9 @@ function prepareObjects(jsonData) {
     student.lastname = makeLastNameCapital(everyName.lastName);
 
     student.image = `images/${everyName.lastName.toLowerCase()}_${everyName.firstName.charAt(0).toLowerCase()}.png`
+    
+    student.bloodstatus = getBloodStatus(everyName.lastName);
+
     allStudents.push(student);
   }); 
 
@@ -69,12 +75,11 @@ function displayStudent(student) {
   clone.querySelector("[data-field=middleName]").textContent = student.middlename;
   clone.querySelector("[data-field=nickName]").textContent = student.nickname;
   clone.querySelector("[data-field=lastName]").textContent = student.lastname;
-
   clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("#image").src = student.image;
-  //clone.querySelector('td[data-field="image"]>img').src = student.image;
-
   clone.querySelector("[data-field=house]").textContent = student.house;
+  clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
+  
 
 
   // append clone to list
