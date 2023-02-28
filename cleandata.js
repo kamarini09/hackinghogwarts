@@ -47,7 +47,7 @@ function prepareObjects(jsonData) {
     student.nickname = everyName.nickName;
     student.lastname = makeLastNameCapital(everyName.lastName);
 
-    student.image = `images/${everyName.lastName.toLowerCase()}_${everyName.firstName.charAt(0).toLowerCase()}.png`
+    student.image = putImage(everyName.lastName , everyName.firstName);
     
     student.bloodstatus = getBloodStatus(everyName.lastName);
 
@@ -135,15 +135,22 @@ function createName(fullname){
       middleName = fullname.substring(fullname.indexOf(" ")+1, isNick -1);
     }
     
-    // if(middleName === ""){
-    //   return middleName = " "
-    // }
-    // if(nickName === " "){
-    //   return nickName = ""
-    // }
-    // if(lastName === " "){
-    //   return lastName = ""
-    // }
     return {firstName , middleName , nickName , lastName}
   
   }
+
+
+function putImage(lastname, firstname){
+
+  if (lastname === "Patil"){
+    return `images/${lastname.toLowerCase()}_${firstname.toLowerCase()}.png`
+  
+  }
+  else if(lastname.includes('-')){
+    return `images/${lastname.substring(lastname.indexOf("-") +1 )}_${firstname.charAt(0).toLowerCase()}.png`
+  }
+  else {
+  return `images/${lastname.toLowerCase()}_${firstname[0].toLowerCase()}.png`
+  }
+
+}
