@@ -153,4 +153,5 @@ function putImage(lastname, firstname){
   return `images/${lastname.toLowerCase()}_${firstname[0].toLowerCase()}.png`
   }
 
+
 }
