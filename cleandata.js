@@ -16,7 +16,9 @@ const Student = {
     gender: "",
     image: "",
     house: "",
-    bloodstatus: ""
+    bloodstatus: "",
+    squad: false ,
+    prefect: false
 };
 function start() {
   console.log("ready");
@@ -40,24 +42,20 @@ function prepareObjects(jsonData) {
     //console.log(createName(jsonObject.fullname));
     student.gender = jsonObject.gender;
     student.house = makeFirstCapital(jsonObject.house.trim()) ;
-    
-    
     student.firstname = makeFirstCapital(everyName.firstName);
     student.middlename = makeFirstCapital(everyName.middleName);
     student.nickname = everyName.nickName;
     student.lastname = makeLastNameCapital(everyName.lastName);
-
     student.image = putImage(everyName.lastName , everyName.firstName);
-    
     student.bloodstatus = getBloodStatus(everyName.lastName);
-
+    
     allStudents.push(student);
   }); 
 
   displayList();
 }
  //--------------------------------VIEW--------------------------------
-function displayList() {
+ function displayList() {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
 
@@ -66,26 +64,57 @@ function displayList() {
 }
 
 function displayStudent(student) {
-   
   // create clone
   const clone = document.querySelector("template#student").content.cloneNode(true);
 
   // set clone data
-  clone.querySelector("[data-field=firstName]").textContent = student.firstname;
-  clone.querySelector("[data-field=middleName]").textContent = student.middlename;
-  clone.querySelector("[data-field=nickName]").textContent = student.nickname;
-  clone.querySelector("[data-field=lastName]").textContent = student.lastname;
-  clone.querySelector("[data-field=gender]").textContent = student.gender;
   clone.querySelector("#image").src = student.image;
+  clone.querySelector("[data-field=firstName").textContent = student.firstname;
+  clone.querySelector("[data-field=middleName]").textContent = student.middlename;
+  clone.querySelector("[data-field=nickName").textContent = student.nickname;
+  clone.querySelector("[data-field=lastName]").textContent = student.lastname;
+  clone.querySelector("[data-field=gender").textContent = student.gender;
   clone.querySelector("[data-field=house]").textContent = student.house;
   clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
-  
 
+  // add someone to the squad ⭐
+if (student.squad) {
+  clone.querySelector("[data-field=squad]").innerHTML = "⭐";
+  console.log("you are a squad member - change star");
+} else {
+  clone.querySelector("[data-field=squad]").innerHTML = "☆";
+  console.log("you are not squad");
+}
+
+clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
+
+ function addToSquad() {
+    if (student.bloodstatus === "Pure Blood" || student.house === "Slytherin") {
+      student.squad = !student.squad;
+    } else {
+      alert("you cannot");
+    }
+    displayList();
+  }
+
+  // put a student in prefect
+  clone.querySelector("[data-field=prefects]").dataset.prefect = student.prefect;
+  clone.querySelector("[data-field=prefects]").addEventListener(`click`, makePrefect);
+
+    function makePrefect(){
+        // untoggle a prefect is always possible, but not toggle it (2 winners for each category)
+        if(student.prefect === true){
+            student.prefect = false;
+        } else {
+            tryToMakeAPrefect(student);
+        }
+    // buildList();
+    displayList();
+  }
 
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
-
 
 
 //------------------------CONTROLER-----------------------------------
@@ -135,6 +164,8 @@ function createName(fullname){
       middleName = fullname.substring(fullname.indexOf(" ")+1, isNick -1);
     }
     
+
+
     return {firstName , middleName , nickName , lastName}
   
   }
@@ -155,3 +186,64 @@ function putImage(lastname, firstname){
 
 
 }
+
+function tryToMakeAPrefect(selectedStudent){
+  const prefects = allStudents.filter(student => student.prefect)
+  // i'm populating sameHouseAndGender when the selected students match the criteria on the return
+  const sameHouseAndGender = prefects.filter(student => student.house === selectedStudent.house && student.gender === selectedStudent.gender).shift();
+
+    // if other is different than undefined, it means that is has been populated
+    if (sameHouseAndGender !== undefined){
+      console.log("Prefects must be a boy and a girl!");
+      removeAorB(sameHouseAndGender, selectedStudent);
+  } else {
+      makePrefect(selectedStudent);
+  }
+
+  function removeAorB(studentA, studentB){
+    // show names on buttons
+    document.querySelector("#onlyonekind [data-action=remove1] span").textContent =`${studentA.firstname}`;
+    document.querySelector("#onlyonekind [data-action=remove2] span").textContent = `${studentB.firstname}`;
+  
+    // ask the user to ignore or remove 'A or B
+    document.querySelector("#onlyonekind").classList.remove("hide");
+    document.querySelector("#onlyonekind .closebutton").addEventListener("click", closeDialog);
+    document.querySelector("#onlyonekind [data-action=remove1]").addEventListener("click", clickRemoveA);
+    document.querySelector("#onlyonekind [data-action=remove2]").addEventListener("click", clickRemoveB);
+  
+    // if ignore, do nothing
+    function closeDialog(){
+    document.querySelector("#onlyonekind").classList.add("hide");
+    document.querySelector("#onlyonekind .closebutton").removeEventListener("click", closeDialog);
+    document.querySelector("#onlyonekind [data-action=remove1]").removeEventListener("click", clickRemoveA);
+    document.querySelector("#onlyonekind [data-action=remove2]").removeEventListener("click", clickRemoveB);
+    }
+  
+  function clickRemoveA(){
+        removePrefect(studentA);
+        makePrefect(studentB);
+        displayList();
+        closeDialog();
+    }
+  
+  function clickRemoveB(){
+    removePrefect(studentB);
+    makePrefect(studentA);
+    displayList();
+    closeDialog();
+    }
+  
+  }
+
+// common to both solution 1 and 2 (check readme or documentation)
+function removePrefect(student){
+  console.log("remove prefect");
+  student.prefect = false;
+}
+
+function makePrefect(student){
+  student.prefect = true;
+}
+
+}
+
