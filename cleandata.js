@@ -4,7 +4,8 @@ import { getBloodStatus } from "./bloodstatus.js";
 
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
 
-let globalObject ={filter: "*"};
+let globalObject ={filter: "*" ,prefects:[]};
+ 
  
 start();
 
@@ -54,15 +55,20 @@ function prepareObjects(jsonData) {
     allStudents.push(student);
   }); 
 
-  displayList();
+  displayList(allStudents);
 }
  //--------------------------------VIEW--------------------------------
- function displayList() {
+//  function buildList() {
+//   const currentList = filterInput(allStudents);
+//   //let sortedList = sortList(currentList);
+//  displayList(currentList);
+// }
+ function displayList(student) {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
 
   // build a new list
-  allStudents.forEach(displayStudent);
+  student.forEach(displayStudent);
 }
 
 function displayStudent(student) {
@@ -96,7 +102,7 @@ clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
     } else {
       alert("you cannot");
     }
-    displayList();
+    displayList(allStudents);
   }
 
   // put a student in prefect
@@ -222,9 +228,11 @@ function putImage(lastname, firstname){
 }
 
 function tryToMakeAPrefect(selectedStudent){
-  const prefects = allStudents.filter(student => student.prefect)
+ // const prefects = allStudents.filter(student => student.prefect)
+ //i made them global so i can call the display list later
+ globalObject.prefects = allStudents.filter(student => student.prefect)
   // i'm populating sameHouseAndGender when the selected students match the criteria on the return
-  const sameHouseAndGender = prefects.filter(student => student.house === selectedStudent.house && student.gender === selectedStudent.gender).shift();
+  const sameHouseAndGender = globalObject.prefects.filter(student => student.house === selectedStudent.house && student.gender === selectedStudent.gender).shift();
 
     // if other is different than undefined, it means that is has been populated
     if (sameHouseAndGender !== undefined){
@@ -256,18 +264,20 @@ function tryToMakeAPrefect(selectedStudent){
   function clickRemoveA(){
         removePrefect(studentA);
         makePrefect(studentB);
-        displayList();
+        displayList(allStudents);
         closeDialog();
     }
   
   function clickRemoveB(){
     removePrefect(studentB);
     makePrefect(studentA);
-    displayList();
+    displayList(allStudents);
     closeDialog();
     }
   
-  }
+  //------------filtering for prefect----------------------
+  
+}
 
 // common to both solution 1 and 2 (check readme or documentation)
 function removePrefect(student){
@@ -281,9 +291,13 @@ function makePrefect(student){
 
 }
 
+
 //--------------------filtering--------------------------
 function triggerButtons(){
   document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);
+  document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", clickPrefect);}); 
+  
+
 }); 
 }
 
@@ -296,7 +310,7 @@ function triggerButtons(){
     } else {
         filteredList = allStudents;
     }
-    displayList();
+    displayList(filteredList);
     console.log(filteredList);
   }
  
@@ -308,5 +322,5 @@ function triggerButtons(){
     if(student.bloodstatus.toLowerCase() === globalObject.filter ){
       return true
     }
-
   }
+ 
