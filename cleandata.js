@@ -324,3 +324,8 @@ function triggerButtons(){
     }
   }
  
+  //let prefects; // i made it global so i can call it here
+  function clickPrefect(){
+    displayList(globalObject.prefects);
+    console.log(globalObject.prefects)
+  }
