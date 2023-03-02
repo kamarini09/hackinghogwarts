@@ -7,81 +7,223 @@
     <link rel="stylesheet" href="style.css" />
     <script type="module" src="cleandata.js"></script>
     <script type="module" src="bloodstatus.js"></script>
-    <!-- <script type="module" src="prefect.js"></script> -->
 
     <title>Hogwarts List</title>
   </head>
   <body>
-    <p>
-      Filter:
-      <button class="filter" data-action="filter" data-filter="cat">Prefects</button>
-      <button class="filter" data-action="filter" data-filter="dog">Inquisitorial squad</button>
-      <button class="filter" data-action="filter" data-filter="*">all</button>
-    </p>
-    <table id="list">
-      <thead>
-        <tr>
-          <th>Inquisitorial Squad</th>
-          <th>Prefects</th>
-          <th>Image</th>
-          <th>First Name</th>
-          <th>Middle Name</th>
-          <th>Nick Name</th>
-          <th>Last Name</th>
-          <th>Gender</th>
-          <th>House</th>
-          <th>Blood Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- student's template will be copied and inserted here -->
-      </tbody>
-    </table>
+    <header><h1>Hogwarts</h1></header>
+    <main>
+      
+      <section id="aside">
 
-    <template id="student">
-      <tr>
-        <td data-field="squad"></td>
-        <td data-field="prefects" data-prefect="false"></td>
-        <td><img id="image" src="images/bones_s.png" alt="" /></td>
-        <td data-field="firstName">First Name</td>
-        <td data-field="middleName">Middle Name</td>
-        <td data-field="nickName">Nick Name</td>
-        <td data-field="lastName">Last Name</td>
-        <td data-field="gender">Gender</td>
-        <td data-field="house">House</td>
-        <td data-field="bloodStatus"></td>
-      </tr>
-    </template>
+        <div class="admin">
+          <img src="images/umbridge.jpeg" alt="propic" />
+          <p>Hello, <i>Dolores Umbridge!</i></p>
+        </div>
+        <article class="house Gryffindor">
+          <img src="" alt="house-crest" />
+          <h4>Gryffindor</h4>
+          <p><span id="students-number">00</span> students</p>
+        </article>
+        <article class="house Slytherin">
+          <img src="" alt="house-crest" />
+          <h4>Slytherin</h4>
+          <p><span id="students-number">00</span> students</p>
+        </article>
+        <article class="house Ravenclaw">
+          <img src="" alt="house-crest" />
+          <h4>Ravenclaw</h4>
+          <p><span id="students-number">00</span> students</p>
+        </article>
+        <article class="house Hufflepuff">
+          <img src="" alt="house-crest" />
+          <h4>Hufflepuff</h4>
+          <p><span id="students-number">00</span> students</p>
+        </article>
+        <div class="total-numbers">
+          <p class="enrolled">Enrolled students <span>00</span></p>
+          <p class="expelled">Expelled students <span>00</span></p>
+        </div>
+      </section>
 
-    <!-- <div id="onlytwowinners" class="modal hide">
-      <div class="dialog">
-        <button class="closebutton">X</button>
-        <h1>Warning!</h1>
-        <h2>
-          You can only have two prefects of each house!
-          <br />
-          Remove one, before you appoint more
-        </h2>
-        <p>
-          <button data-action="remove1">remove <span class="student1">NAME, the House</span></button>
-        </p>
-        <p>
-          <button data-action="remove2">remove <span class="student2">NAME, the House</span></button>
-        </p>
+      <div id="main-area">
+
+        <section class="header">
+          <h2>Class 1991</h2>
+          <section id="filter">
+            <div>
+              <h3>Houses</h3>
+              <button class="filter" data-action="filter" data-filter="gryffindor">
+               Gryffindor
+              </button>
+              <button class="filter" data-action="filter" data-filter="slytherin">
+               Slytherin
+              </button>
+              <button class="filter" data-action="filter" data-filter="ravenclaw">
+               Ravenclaw
+              </button>
+              <button
+               class="filter" data-action="filter" data-filter="hufflepuff">
+               Hufflepuff
+              </button>
+            </div>
+            <div>
+             <h3>Blood status</h3>
+             <button class="filter" data-action="filter" data-filter="pure-blood">
+               Pure Blood
+             </button>
+             <button class="filter" data-action="filter" data-filter="half-blood">
+               Half-Blood
+             </button>
+             <button class="filter" data-action="filter" data-filter="muggle">
+               Muggle
+             </button>
+            </div>
+            <div>
+             <h3>Roles</h3>
+             <button class="filter" data-action="filter" data-filter="prefects">
+               Prefects
+             </button>
+             <button class="filter" data-action="filter" data-filter="squad">
+               Inquisitorial squad
+             </button>
+            </div>
+            <div>
+             <h3>Status</h3>
+             <button class="filter" data-action="filter" data-filter="expelled">
+               Expelled
+             </button>
+             <button class="filter" data-action="filter" data-filter="enrolled">
+               Enrolled
+             </button>
+            </div>
+          </section>
+          <section class="search-sort">
+           <input type="text" placeholder="Type a name here..." />
+           <div id="drop-down-menu">
+             <p>Sort by</p>
+             <select id="sort-options">
+                <option value="0">A - Z</option>
+                <option value="1">Z - A</option>
+                <option value="2">Houses</option>
+             </select>
+           </div>
+          </section>
+        </section>
+
+        <section class="students-list">
+          <table id="list">
+              <thead>
+                <tr>
+                  <th>Inquisitorial Squad</th>
+                  <th>Prefects</th>
+                  <th>Image</th>
+                  <th>First Name</th>
+                  <th>Middle Name</th>
+                  <th>Nick Name</th>
+                  <th>Last Name</th>
+                  <th>Gender</th>
+                  <th>House</th>
+                  <th>Blood Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- student's template will be copied and inserted here -->
+              </tbody>
+          </table>
+          <template id="student">
+              <tr>
+                <td data-field="squad"></td>
+                <td data-field="prefects" data-prefect="false"></td>
+                <td><img id="image" src="images/bones_s.png" alt="" /></td>
+                <td data-field="firstName">First Name</td>
+                <td data-field="middleName">Middle Name</td>
+                <td data-field="nickName">Nick Name</td>
+                <td data-field="lastName">Last Name</td>
+                <td data-field="gender">Gender</td>
+                <td data-field="house">House</td>
+                <td data-field="bloodStatus"></td>
+              </tr>
+          </template>
+        </section>
+
       </div>
-    </div> -->
+    </main>
 
     <!-- dialogs -->
     <div id="onlyonekind" class="modal hide">
       <div class="dialog">
         <button class="closebutton">X</button>
         <h1>Warning!</h1>
-        <h2>You can only have one prefect of each gender. <br />Remove one.</h2>
+        <h2>
+          You can only have one prefect of each gender. <br />Remove one.
+        </h2>
         <p>
-          <button data-action="remove1">remove <span class="student1"></span></button>
-          <button data-action="remove2">remove <span class="student2"></span></button>
+          <button data-action="remove1">
+            remove <span class="student1"></span>
+          </button>
+          <button data-action="remove2">
+            remove <span class="student2"></span>
+          </button>   
         </p>
       </div>
     </div>
+
+<!-- <template id="student-card-template"> -->
+    <div id="student-card" class="modal hide">
+      <article id="dialog">
+        <button class="closebutton">X</button>
+        <div class="popup-body">
+        <div class="popup-column">
+         <img id="image" src="images/bones_s.png" alt="student-pic"/>
+         <button id="status">Enrolled</button>
+         <p>-</p>
+        </div>
+        <div class="popup-column">
+          <div>
+            <p class="info">First Name</p>
+            <p data-field="firstName">-</p>
+          </div>
+          <div>
+            <p class="info">Middle Name</p>
+            <p data-field="middleName">-</p>
+          </div>
+          <div>
+            <p class="info">Lastname</p>
+            <p data-field="lastName">-</p>
+          </div>
+          <div>
+            <p class="info">Nickname</p>
+            <p data-field="nickName">-</p>
+          </div>
+        </div>
+        <div class="popup-column">
+          <div>
+           <p class="info">House</p>
+            <div id="house-info">
+             <div class="shape shape1"></div><div class="shape shape1"></div>
+             <p data-field="house">Housename</p>
+            </div>
+          </div>
+          <div>
+            <p class="info">Blood status</p>
+            <div id="blood-info">
+             <div class="shape"></div><p data-field="bloodStatus">-</p>
+            </div>
+          </div>
+          <div>
+           <p class="info">Gender</p>
+           <p data-field="gender">-</p>
+          </div>
+          <div>
+           <p class="info">Roles</p>
+           <p data-field="squad"></p>
+           <p data-field="prefects" data-prefect="false"></p>
+          </div>
+        </div>
+      </pop-body>
+      </article>
+    </div>
+  <!-- </template> -->
   </body>
 </html>

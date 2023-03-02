@@ -111,12 +111,44 @@ clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
     // buildList();
     displayList();
   }
-
+  clone.querySelector("td #image").addEventListener(`click`, () => {displayStudentCard(student)});
   // append clone to list
   document.querySelector("#list tbody").appendChild(clone);
 }
 
+function displayStudentCard(student){
+  const popup = document.querySelector("#student-card");
+  popup.classList.remove("hide");
+  
+  popup.querySelector("#image").src = student.image;
+  popup.querySelector("[data-field=firstName]").textContent = student.firstname;
+  popup.querySelector("[data-field=middleName]").textContent = student.middlename;
+  popup.querySelector("[data-field=nickName").textContent = student.nickname;
+  popup.querySelector("[data-field=lastName]").textContent = student.lastname;
+  popup.querySelector("[data-field=gender").textContent = student.gender;
+  popup.querySelector("[data-field=house]").textContent = student.house;
+  popup.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
+  
+  if(student.house === "Gryffindor"){
+    popup.querySelector("#dialog").classList.add("gryffindor");
 
+  }else if(student.house === "Slytherin"){
+    popup.querySelector("#dialog").classList.add("slytherin");
+  }else if(student.house === "Ravenclaw"){
+    popup.querySelector("#dialog").classList.add("ravenclaw");
+
+  }else{
+    popup.querySelector("#dialog").classList.add("hufflepuff");
+  }
+
+  popup.querySelector(".closebutton").addEventListener('click', closeStudentCard);
+  
+  function closeStudentCard(){
+  popup.classList.add("hide");
+  popup.querySelector("#dialog").classList = "";
+  // popup.querySelector(".closebutton").removeEventListener("click", closeStudentCard());
+  }
+}
 //------------------------CONTROLER-----------------------------------
 function makeFirstCapital(x){
 return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
