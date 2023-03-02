@@ -3,6 +3,8 @@ import { getBloodStatus } from "./bloodstatus.js";
 
 
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
+
+let globalObject ={filter: "*"};
  
 start();
 
@@ -22,9 +24,10 @@ const Student = {
 };
 function start() {
   console.log("ready");
-
   loadJSON();
+  triggerButtons();
 }
+
 //--------------------MODEL--------------------------
 function loadJSON() {
   fetch(endpoint)
@@ -39,7 +42,6 @@ function prepareObjects(jsonData) {
   jsonData.forEach((jsonObject) => {
     const student = Object.create(Student);
     let everyName = createName(jsonObject.fullname.trim());
-    //console.log(createName(jsonObject.fullname));
     student.gender = jsonObject.gender;
     student.house = makeFirstCapital(jsonObject.house.trim()) ;
     student.firstname = makeFirstCapital(everyName.firstName);
@@ -80,10 +82,10 @@ function displayStudent(student) {
   // add someone to the squad ⭐
 if (student.squad) {
   clone.querySelector("[data-field=squad]").innerHTML = "⭐";
-  console.log("you are a squad member - change star");
+  //console.log("you are a squad member - change star");
 } else {
   clone.querySelector("[data-field=squad]").innerHTML = "☆";
-  console.log("you are not squad");
+  //console.log("you are not squad");
 }
 
 clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
@@ -109,7 +111,7 @@ clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
             tryToMakeAPrefect(student);
         }
     // buildList();
-    displayList();
+    displayList(allStudents);
   }
   clone.querySelector("td #image").addEventListener(`click`, () => {displayStudentCard(student)});
   // append clone to list
@@ -279,3 +281,32 @@ function makePrefect(student){
 
 }
 
+//--------------------filtering--------------------------
+function triggerButtons(){
+  document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);
+}); 
+}
+
+  function filterInput(event){
+    let filteredList;
+    globalObject.filter = event.target.dataset.filter;
+    console.log(globalObject.filter);
+    if (globalObject.filter !== "*") {
+        filteredList = allStudents.filter(filterBy);
+    } else {
+        filteredList = allStudents;
+    }
+    displayList();
+    console.log(filteredList);
+  }
+ 
+
+  function filterBy(student){
+    if(student.house.toLowerCase() === globalObject.filter ){
+      return true
+    }
+    if(student.bloodstatus.toLowerCase() === globalObject.filter ){
+      return true
+    }
+
+  }

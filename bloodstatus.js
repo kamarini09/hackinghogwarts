@@ -25,7 +25,7 @@ function loadJSON() {
         return "Half-Blood"
     }
     else if(pure.includes(lastname)){
-        return "Pure Blood"
+        return "Pure-Blood"
     }else{
         return "Muggle"
     }
