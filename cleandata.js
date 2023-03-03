@@ -107,9 +107,9 @@ clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
 
   // put a student in prefect
   clone.querySelector("[data-field=prefects]").dataset.prefect = student.prefect;
-  clone.querySelector("[data-field=prefects]").addEventListener(`click`, makePrefect);
+  clone.querySelector("[data-field=prefects]").addEventListener(`click`, isPrefect);
 
-    function makePrefect(){
+    function isPrefect(){
         // untoggle a prefect is always possible, but not toggle it (2 winners for each category)
         if(student.prefect === true){
             student.prefect = false;
@@ -295,7 +295,8 @@ function makePrefect(student){
 //--------------------filtering--------------------------
 function triggerButtons(){
   document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);
-  document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", clickPrefect);}); 
+  document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", filterByPrefect);}); 
+  console.log(globalObject.prefects);
   
 
 }); 
@@ -325,7 +326,8 @@ function triggerButtons(){
   }
  
   //let prefects; // i made it global so i can call it here
-  function clickPrefect(){
+  function filterByPrefect(){
+    globalObject.prefects = allStudents.filter(student => student.prefect);
     displayList(globalObject.prefects);
     console.log(globalObject.prefects)
   }
