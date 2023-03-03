@@ -4,7 +4,7 @@ import { getBloodStatus } from "./bloodstatus.js";
 
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
 
-let globalObject ={filter: "*" ,prefects:[]};
+let globalObject ={filter: "*" ,prefects:[], squad:[]};
  
  
 start();
@@ -67,8 +67,16 @@ function prepareObjects(jsonData) {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
 
+  if(document.querySelector("[data-filter=squad]").classList.contains('active')){
+    globalObject.squad.forEach(displayStudent);
+     console.log("im trigered")
+
+  }else{
+    student.forEach(displayStudent);
+  }
+
   // build a new list
-  student.forEach(displayStudent);
+ 
 }
 
 function displayStudent(student) {
@@ -97,8 +105,11 @@ if (student.squad) {
 clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
 
  function addToSquad() {
-    if (student.bloodstatus === "Pure Blood" || student.house === "Slytherin") {
+    if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
       student.squad = !student.squad;
+      globalObject.squad = allStudents.filter(student => student.squad);
+      console.log(globalObject.squad);
+     
     } else {
       alert("you cannot");
     }
@@ -296,7 +307,8 @@ function makePrefect(student){
 function triggerButtons(){
   document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);
   document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", filterByPrefect);}); 
-  console.log(globalObject.prefects);
+  document.querySelectorAll("[data-filter=squad]").forEach((each) =>{each.addEventListener("click", filterBySquad);}); 
+
   
 
 }); 
@@ -329,5 +341,13 @@ function triggerButtons(){
   function filterByPrefect(){
     globalObject.prefects = allStudents.filter(student => student.prefect);
     displayList(globalObject.prefects);
-    console.log(globalObject.prefects)
+    console.log(globalObject.prefects);
+  }
+
+
+  function filterBySquad(){
+    // globalObject.squad= allStudents.filter(student => student.squad);
+    document.querySelector("[data-filter=squad]").classList.add("active");
+    displayList(globalObject.squad);
+    console.log(globalObject.squad);
   }

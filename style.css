@@ -90,6 +90,11 @@ button:hover {
   color: var(--black);
 }
 
+.active {
+  background-color: red;
+  color: var(--white);
+}
+
 .search-sort {
   display: flex;
   justify-content: space-between;
