@@ -4,7 +4,7 @@ import { getBloodStatus } from "./bloodstatus.js";
 
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
 
-let globalObject ={filter: "*" ,prefects:[], squad:[]};
+let globalObject ={filter: "*" ,prefects:[], squad:[] , sortBy: "" , sortDir:""};
  
  
 start();
@@ -58,11 +58,12 @@ function prepareObjects(jsonData) {
   displayList(allStudents);
 }
  //--------------------------------VIEW--------------------------------
-//  function buildList() {
-//   const currentList = filterInput(allStudents);
-//   //let sortedList = sortList(currentList);
-//  displayList(currentList);
-// }
+ function buildList() {
+  //const currentList = filterInput(allStudents);
+  let sortedList = sortList(allStudents);
+  displayList(sortedList);
+  console.log(sortedList);
+}
  function displayList(student) {
   // clear the list
   document.querySelector("#list tbody").innerHTML = "";
@@ -169,6 +170,7 @@ function displayStudentCard(student){
   }
 }
 //------------------------CONTROLER-----------------------------------
+//-----------------------cleaning data--------------------------------
 function makeFirstCapital(x){
 return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
 }
@@ -303,16 +305,21 @@ function makePrefect(student){
 }
 
 
-//--------------------filtering--------------------------
+//--------------------triggerButtons--------------------------
+
+
 function triggerButtons(){
   document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);
   document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", filterByPrefect);}); 
-  document.querySelectorAll("[data-filter=squad]").forEach((each) =>{each.addEventListener("click", filterBySquad);}); 
+  document.querySelectorAll("[data-filter=squad]").forEach((each) =>{each.addEventListener("click", filterBySquad);});
+  document.querySelectorAll("#sort-options").forEach((each) =>{each.addEventListener("click", sortInput);});
+
 
   
 
 }); 
 }
+//--------------------filtering--------------------------
 
   function filterInput(event){
     let filteredList;
@@ -351,3 +358,49 @@ function triggerButtons(){
     displayList(globalObject.squad);
     console.log(globalObject.squad);
   }
+
+//--------------------sorting--------------------------
+
+
+function sortInput(event){
+
+   const sortBy = event.target.dataset.sort;
+   const sortDir = event.target.dataset.sortDirection;
+   console.log(sortBy);
+   console.log(sortDir);
+  setSort(sortBy,sortDir);
+  
+}
+
+function setSort(sortBy, sortDir){
+  globalObject.sortBy = sortBy;
+  globalObject.sortDir = sortDir;
+  buildList();
+}
+
+
+
+function sortList(sortedList){
+  
+   let direction = 1;
+   //for z-a
+   if(globalObject.sortDir === "desc"){
+       direction = -1;
+    }
+   sortedList = sortedList.sort(sortByInput);
+
+  function sortByInput(studentA, studentB){
+       console.log(`sorted by ${globalObject.sortBy}`)
+       //a-z
+      if(studentA[globalObject.sortBy]   < studentB[globalObject.sortBy]){
+          return -1 * direction;
+      }else{
+          return 1 * direction;
+      }
+  }
+   return sortedList;
+  
+     
+}
+
+  
