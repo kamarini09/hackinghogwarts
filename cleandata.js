@@ -59,8 +59,8 @@ function prepareObjects(jsonData) {
 }
  //--------------------------------VIEW--------------------------------
  function buildList() {
-  //const currentList = filterInput(allStudents);
-  let sortedList = sortList(allStudents);
+  const currentList = filterList(allStudents);
+  let sortedList = sortList(currentList);
   displayList(sortedList);
   console.log(sortedList);
 }
@@ -109,12 +109,15 @@ clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
     if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
       student.squad = !student.squad;
       globalObject.squad = allStudents.filter(student => student.squad);
-      console.log(globalObject.squad);
+      console.log("im in add squad");
+      
      
     } else {
       alert("you cannot");
+      
     }
-    displayList(allStudents);
+    // displayList(allStudents);
+    buildList();
   }
 
   // put a student in prefect
@@ -128,8 +131,8 @@ clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
         } else {
             tryToMakeAPrefect(student);
         }
-    // buildList();
-    displayList(allStudents);
+    buildList();
+    // displayList(allStudents);
   }
   clone.querySelector("td #image").addEventListener(`click`, () => {displayStudentCard(student)});
   // append clone to list
@@ -170,6 +173,7 @@ function displayStudentCard(student){
   }
 }
 //------------------------CONTROLER-----------------------------------
+
 //-----------------------cleaning data--------------------------------
 function makeFirstCapital(x){
 return x.charAt(0).toUpperCase() + x.substring(1).toLowerCase();
@@ -309,31 +313,40 @@ function makePrefect(student){
 
 
 function triggerButtons(){
-  document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);
+  document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);}); 
   document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", filterByPrefect);}); 
   document.querySelectorAll("[data-filter=squad]").forEach((each) =>{each.addEventListener("click", filterBySquad);});
   document.querySelectorAll("#sort-options").forEach((each) =>{each.addEventListener("click", sortInput);});
+  // document.querySelector("#sort-options").addEventListener("change", (event) => {
+  //   let selectedOption = event.target.selectedOptions[0];
+  //   globalObject.sortBy = selectedOption.dataset.sort;
+  //   globalObject.sortDir = selectedOption.dataset.sortDirection;
+  //   buildList()});
 
-
-  
-
-}); 
 }
 //--------------------filtering--------------------------
 
   function filterInput(event){
-    let filteredList;
-    globalObject.filter = event.target.dataset.filter;
-    console.log(globalObject.filter);
-    if (globalObject.filter !== "*") {
+    const filter = event.target.dataset.filter;
+    setFilter(filter);
+   }
+  
+ function setFilter(filter){
+    globalObject.filter = filter;
+    buildList();
+}
+
+ function filterList(filteredList){
+
+  if (globalObject.filter !== "*") {
         filteredList = allStudents.filter(filterBy);
     } else {
         filteredList = allStudents;
     }
-    displayList(filteredList);
-    console.log(filteredList);
-  }
- 
+    return filteredList;
+   
+ }
+  
 
   function filterBy(student){
     if(student.house.toLowerCase() === globalObject.filter ){
@@ -344,18 +357,16 @@ function triggerButtons(){
     }
   }
  
-  //let prefects; // i made it global so i can call it here
   function filterByPrefect(){
     globalObject.prefects = allStudents.filter(student => student.prefect);
     displayList(globalObject.prefects);
     console.log(globalObject.prefects);
   }
 
-
   function filterBySquad(){
-    // globalObject.squad= allStudents.filter(student => student.squad);
     document.querySelector("[data-filter=squad]").classList.add("active");
-    displayList(globalObject.squad);
+    //displayList(globalObject.squad);
+    buildList();
     console.log(globalObject.squad);
   }
 
@@ -390,9 +401,10 @@ function sortList(sortedList){
    sortedList = sortedList.sort(sortByInput);
 
   function sortByInput(studentA, studentB){
-       console.log(`sorted by ${globalObject.sortBy}`)
+       //console.log(`sorted by ${globalObject.sortBy}`)
        //a-z
-      if(studentA[globalObject.sortBy]   < studentB[globalObject.sortBy]){
+       console.log(`im here and the globalObject sortBy is this ${globalObject.sortBy}`)
+      if(studentA[globalObject.sortBy] < studentB[globalObject.sortBy]){
           return -1 * direction;
       }else{
           return 1 * direction;
