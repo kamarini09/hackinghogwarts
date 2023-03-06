@@ -322,7 +322,7 @@ function triggerButtons(){
   //   globalObject.sortBy = selectedOption.dataset.sort;
   //   globalObject.sortDir = selectedOption.dataset.sortDirection;
   //   buildList()});
-
+  document.querySelector("#searchbox").addEventListener("input", liveSearch);
 }
 //--------------------filtering--------------------------
 
@@ -416,3 +416,28 @@ function sortList(sortedList){
 }
 
   
+//--------------------searching--------------------------
+
+// ******* search bar ********
+// https://css-tricks.com/in-page-filtered-search-with-vanilla-javascript/
+// right now it's searching inside the entire student row, we need to narrow it down to only name, surname e nickname
+function liveSearch() {
+  // Locate the card elements
+  let studentRow = document.querySelectorAll('.student-row');
+
+  // Locate the search input
+  let searchBar = document.getElementById("searchbox").value;
+  
+  // Loop through the cards
+  for (let i = 0; i < studentRow.length; i++) {
+    // If the text is within the card, and the text matches the search query, remove the `.is-hidden` class.
+    if(studentRow[i].innerText.toLowerCase().includes(searchBar.toLowerCase())){
+      // we need to keep "remove hide" so that it keeps searching also when we delete a letter
+      studentRow[i].classList.remove("hide");
+  } else {
+    // Otherwise, add the class.
+    studentRow[i].classList.add("hide");
+  }
+}
+}
+

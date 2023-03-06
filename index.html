@@ -99,7 +99,7 @@
             </div>
           </section>
           <section class="search-sort">
-           <input type="text" placeholder="Type a name here..." />
+            <input type="search" id="searchbox" placeholder="Type a name here..." />
 
            <!-----------------------------sorting--------------------------->
            <div id="drop-down-menu">
@@ -136,14 +136,14 @@
               </tbody>
           </table>
           <template id="student">
-              <tr>
+              <tr class="student-row">
                 <td  data-field="squad"></td>
                 <td data-field="prefects" data-prefect="false"></td>
                 <td><img id="image" src="images/bones_s.png" alt="" /></td>
-                <td data-field="firstName">First Name</td>
+                <td class="search" data-field="firstName">First Name</td>
                 <td data-field="middleName">Middle Name</td>
                 <td data-field="nickName">Nick Name</td>
-                <td data-field="lastName">Last Name</td>
+                <td class="search" data-field="lastName">Last Name</td>
                 <td data-field="gender">Gender</td>
                 <td data-field="house">House</td>
                 <td data-field="bloodStatus"></td>
