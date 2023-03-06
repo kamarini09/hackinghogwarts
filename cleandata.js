@@ -12,7 +12,7 @@ start();
 const allStudents = [];
 
 const Student = {
-    firstname: "",
+    firstName: "",
     lastName: "",
     middleName: "",
     nickName: "",
