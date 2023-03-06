@@ -116,43 +116,22 @@
         </section>
 
         <section class="students-list">
-          <table id="list">
-              <thead>
-                <tr>
-                  <th>Inquisitorial Squad</th>
-                  <th>Prefects</th>
-                  <th>Image</th>
-                  <th>First Name</th>
-                  <th>Middle Name</th>
-                  <th>Nick Name</th>
-                  <th>Last Name</th>
-                  <th>Gender</th>
-                  <th>House</th>
-                  <th>Blood Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!-- student's template will be copied and inserted here -->
-              </tbody>
-          </table>
-          <template id="student">
-              <tr class="student-row">
-                <td  data-field="squad"></td>
-                <td data-field="prefects" data-prefect="false"></td>
-                <td><img id="image" src="images/bones_s.png" alt="" /></td>
-                <td class="search" data-field="firstName">First Name</td>
-                <td data-field="middleName">Middle Name</td>
-                <td data-field="nickName">Nick Name</td>
-                <td class="search" data-field="lastName">Last Name</td>
-                <td data-field="gender">Gender</td>
-                <td data-field="house">House</td>
-                <td data-field="bloodStatus"></td>
-              </tr>
-          </template>
+          
         </section>
 
       </div>
     </main>
+
+    <!-- template student list card -->
+  <template id="student">
+    <div id="single-student">
+     <img id="image" src="images/bones_s.png" alt="propic"/>
+      <div id="student-fullname">
+       <p data-field="firstName">First Name</p>
+       <!-- <p data-field="middleName">Middle Name</p> -->
+       <p data-field="lastName">Last Name</p>
+      </div>
+</template>
 
     <!-- dialogs -->
     <div id="onlyonekind" class="modal hide">

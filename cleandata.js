@@ -66,7 +66,7 @@ function prepareObjects(jsonData) {
 }
  function displayList(student) {
   // clear the list
-  document.querySelector("#list tbody").innerHTML = "";
+  document.querySelector("section.students-list").innerHTML = "";
 
   if(document.querySelector("[data-filter=squad]").classList.contains('active')){
     globalObject.squad.forEach(displayStudent);
@@ -86,57 +86,67 @@ function displayStudent(student) {
 
   // set clone data
   clone.querySelector("#image").src = student.image;
-  clone.querySelector("[data-field=firstName").textContent = student.firstname;
-  clone.querySelector("[data-field=middleName]").textContent = student.middlename;
-  clone.querySelector("[data-field=nickName").textContent = student.nickname;
+  clone.querySelector("[data-field=firstName]").textContent = student.firstname;
+  // clone.querySelector("[data-field=middleName]").textContent = student.middlename;
+  // clone.querySelector("[data-field=nickName").textContent = student.nickname;
   clone.querySelector("[data-field=lastName]").textContent = student.lastname;
-  clone.querySelector("[data-field=gender").textContent = student.gender;
-  clone.querySelector("[data-field=house]").textContent = student.house;
-  clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
+   //clone.querySelector("#single-student").classList = "";
+  // clone.querySelector("[data-field=gender").textContent = student.gender;
+  // clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
+  
+  //add someone to the squad
+  // if (student.squad) {
+  //   clone.querySelector("[data-field=squad]").innerHTML = "⭐";
+  //   //console.log("you are a squad member - change star");
+  // } else {
+  //   clone.querySelector("[data-field=squad]").innerHTML = "☆";
+  //   //console.log("you are not squad");
+  // }
+  
+  // clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
+  
+  // function addToSquad() {
+  //     if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
+  //       student.squad = !student.squad;
+  //       globalObject.squad = allStudents.filter(student => student.squad);
+  //     } else {
+  //       alert("you cannot");
+  //     }
+  //     buildList();
+  // }
 
-  // add someone to the squad ⭐
-if (student.squad) {
-  clone.querySelector("[data-field=squad]").innerHTML = "⭐";
-  //console.log("you are a squad member - change star");
-} else {
-  clone.querySelector("[data-field=squad]").innerHTML = "☆";
-  //console.log("you are not squad");
-}
+  //put a student in prefect
+  // clone.querySelector("[data-field=prefects]").dataset.prefect = student.prefect;
+  // clone.querySelector("[data-field=prefects]").addEventListener(`click`, isPrefect);
+  
+  // function isPrefect(){
+  //   // untoggle a prefect is always possible, but not toggle it (2 winners for each category)
+  //   if(student.prefect === true){
+  //     student.prefect = false;
+  //   } else {
+  //     tryToMakeAPrefect(student);
+  //   }
+  //   // displayList(allStudents);
+  //   buildList();
+  // }
+  if(student.house === "Gryffindor"){
+    clone.querySelector("#single-student").classList.add("gryffindor");
 
-clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
+  }else if(student.house === "Slytherin"){
+    clone.querySelector("#single-student").classList.add("slytherin");
+  }else if(student.house === "Ravenclaw"){
+    clone.querySelector("#single-student").classList.add("ravenclaw");
 
- function addToSquad() {
-    if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
-      student.squad = !student.squad;
-      globalObject.squad = allStudents.filter(student => student.squad);
-      console.log("im in add squad");
-      
-     
-    } else {
-      alert("you cannot");
-      
-    }
-    // displayList(allStudents);
-    buildList();
+  }else{
+    clone.querySelector("#single-student").classList.add("hufflepuff");
   }
 
-  // put a student in prefect
-  clone.querySelector("[data-field=prefects]").dataset.prefect = student.prefect;
-  clone.querySelector("[data-field=prefects]").addEventListener(`click`, isPrefect);
 
-    function isPrefect(){
-        // untoggle a prefect is always possible, but not toggle it (2 winners for each category)
-        if(student.prefect === true){
-            student.prefect = false;
-        } else {
-            tryToMakeAPrefect(student);
-        }
-    buildList();
-    // displayList(allStudents);
-  }
-  clone.querySelector("td #image").addEventListener(`click`, () => {displayStudentCard(student)});
+  clone.querySelector("div#single-student").addEventListener(`click`, () => {displayStudentCard(student)});
+  
   // append clone to list
-  document.querySelector("#list tbody").appendChild(clone);
+  document.querySelector(".students-list").appendChild(clone);
+  
 }
 
 function displayStudentCard(student){
@@ -423,21 +433,21 @@ function sortList(sortedList){
 // right now it's searching inside the entire student row, we need to narrow it down to only name, surname e nickname
 function liveSearch() {
   // Locate the card elements
-  let studentRow = document.querySelectorAll('.student-row');
+  let studentRow = document.querySelectorAll('#single-student');
+  let studentName = document.querySelectorAll('#student-fullname');
 
   // Locate the search input
   let searchBar = document.getElementById("searchbox").value;
-  
+
   // Loop through the cards
   for (let i = 0; i < studentRow.length; i++) {
     // If the text is within the card, and the text matches the search query, remove the `.is-hidden` class.
-    if(studentRow[i].innerText.toLowerCase().includes(searchBar.toLowerCase())){
+    if(studentName[i].innerText.toLowerCase().includes(searchBar.toLowerCase())){
       // we need to keep "remove hide" so that it keeps searching also when we delete a letter
-      studentRow[i].classList.remove("hide");
+      studentRow[i].classList.remove("hidden");
   } else {
     // Otherwise, add the class.
-    studentRow[i].classList.add("hide");
+    studentRow[i].classList.add("hidden");
   }
-}
-}
+  }}
 
