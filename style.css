@@ -243,14 +243,32 @@ td[data-field="prefects"][data-prefect="false"]::after {
   width: 30%;
 }
 
-button#status {
-  background-color: #74c126;
-  color: darkgreen;
+#status {
+  background-color: #9c9c9c;
+  color: var(--dirty-white);
   width: 100%;
   margin-top: 0.8rem;
   padding: 0.2rem 0 0.2rem 0;
 }
 
+#status.active {
+  background-color: #74c126;
+  color: darkgreen;
+}
+
+button#status:hover {
+  background-color: var(--opaque-black);
+  color: var(--dirty-white);
+  width: 100%;
+  margin-top: 0.8rem;
+  padding: 0.2rem 0 0.2rem 0;
+}
+
+button#status:nth-of-type(1):hover {
+  background-color: var(--dirty-white);
+  border: solid 1px red;
+  color: var(--opaque-black);
+}
 p.info {
   font-size: 10pt;
   font-weight: 100;

@@ -134,7 +134,7 @@
       </div>
       <div id="roles">
        
-        <img id="squad-icon" src="images/icon-squad.svg" alt="">
+        <img id="squad-icon" class="hide" src="images/icon-squad.svg" alt="">
         <img id="prefect-icon" src="images/icon-prefect.svg" alt="">
         <img id="blood-status-icon" src="images/icon-pure-blood.svg" alt="">
       
@@ -162,15 +162,18 @@
       </div>
     </div>
 
-<!-- <template id="student-card-template"> -->
+<!-- pop up window -->
     <div id="student-card" class="modal hide">
       <article id="dialog">
         <button class="closebutton">X</button>
         <div class="popup-body">
         <div class="popup-column">
-         <img id="image" src="images/bones_s.png" alt="student-pic"/>
-         <button id="status">Enrolled</button>
-         <p>-</p>
+          <img id="image" src="images/bones_s.png" alt="student-pic"/>
+          <button id="status" class="active" >Enrolled</button>
+          <button id="status" data-field="prefect">Make Prefect</button>
+          <button id="status" data-field="squad">Add to Squad</button>
+
+          
         </div>
         <div class="popup-column">
           <div>
@@ -208,15 +211,11 @@
            <p class="info">Gender</p>
            <p data-field="gender">-</p>
           </div>
-          <div>
-           <p class="info">Roles</p>
-           <p data-field="squad"></p>
-           <p data-field="prefects" data-prefect="false"></p>
-          </div>
+         
         </div>
       </pop-body>
       </article>
     </div>
-  <!-- </template> -->
+  
   </body>
 </html>

@@ -54,8 +54,8 @@ function prepareObjects(jsonData) {
     
     allStudents.push(student);
   }); 
-
-  displayList(allStudents);
+   //buildList();
+   displayList(allStudents);
 }
  //--------------------------------VIEW--------------------------------
  function buildList() {
@@ -93,27 +93,10 @@ function displayStudent(student) {
    //clone.querySelector("#single-student").classList = "";
   // clone.querySelector("[data-field=gender").textContent = student.gender;
   // clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
-  
-  //add someone to the squad
   // if (student.squad) {
-  //   clone.querySelector("[data-field=squad]").innerHTML = "⭐";
-  //   //console.log("you are a squad member - change star");
-  // } else {
-  //   clone.querySelector("[data-field=squad]").innerHTML = "☆";
-  //   //console.log("you are not squad");
-  // }
-  
-  // clone.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
-  
-  // function addToSquad() {
-  //     if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
-  //       student.squad = !student.squad;
-  //       globalObject.squad = allStudents.filter(student => student.squad);
-  //     } else {
-  //       alert("you cannot");
-  //     }
-  //     buildList();
-  // }
+  //   popup.querySelector("[data-field=squad]").classList.remove("hide");  
+  // } 
+
 
   //put a student in prefect
   // clone.querySelector("[data-field=prefects]").dataset.prefect = student.prefect;
@@ -173,6 +156,31 @@ function displayStudentCard(student){
   }else{
     popup.querySelector("#dialog").classList.add("hufflepuff");
   }
+//add someone to the squad
+  if (student.squad) {
+    popup.querySelector("[data-field=squad]").innerHTML = "squad";
+    //popup.querySelector("[data-field=squad]").classList.add("active");
+    console.log("you are a squad member - change star");
+  } else {
+    popup.querySelector("[data-field=squad]").innerHTML = "Add to Squad";
+    //popup.querySelector("[data-field=squad]").classList.remove("active");
+
+    console.log("you are not squad");
+  }
+  popup.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
+  
+  function addToSquad() {
+      if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
+        student.squad = !student.squad;
+        globalObject.squad = allStudents.filter(student => student.squad);
+      } else {
+        alert("you cannot");
+      }
+      buildList();
+      displayStudentCard(student)
+
+  }
+
 
   popup.querySelector(".closebutton").addEventListener('click', closeStudentCard);
   
