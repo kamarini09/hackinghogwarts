@@ -87,9 +87,9 @@ function displayStudent(student) {
   // set clone data
   clone.querySelector("#image").src = student.image;
   clone.querySelector("[data-field=firstName]").textContent = student.firstname;
-  // clone.querySelector("[data-field=middleName]").textContent = student.middlename;
   // clone.querySelector("[data-field=nickName").textContent = student.nickname;
   clone.querySelector("[data-field=lastName]").textContent = student.lastname;
+  clone.querySelector("#blood-status-icon").src = `images/icon-${student.bloodstatus}.svg`;
    //clone.querySelector("#single-student").classList = "";
   // clone.querySelector("[data-field=gender").textContent = student.gender;
   // clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
