@@ -135,7 +135,7 @@
       <div id="roles">
        
         <img id="squad-icon" class="hide" src="images/icon-squad.svg" alt="">
-        <img id="prefect-icon" src="images/icon-prefect.svg" alt="">
+        <img id="prefect-icon" class="hide" src="images/icon-prefect.svg" alt="">
         <img id="blood-status-icon" src="images/icon-pure-blood.svg" alt="">
       
       </div>
@@ -144,24 +144,7 @@
 </template>
 
     <!-- dialogs -->
-    <div id="onlyonekind" class="modal hide">
-      <div class="dialog">
-        <button class="closebutton">X</button>
-        <h1>Warning!</h1>
-        <h2>
-          You can only have one prefect of each gender. <br />Remove one.
-        </h2>
-        <p>
-          <button data-action="remove1">
-            remove <span class="student1"></span>
-          </button>
-          <button data-action="remove2">
-            remove <span class="student2"></span>
-          </button>   
-        </p>
-      </div>
-    </div>
-
+    
 <!-- pop up window -->
     <div id="student-card" class="modal hide">
       <article id="dialog">
@@ -170,7 +153,7 @@
         <div class="popup-column">
           <img id="image" src="images/bones_s.png" alt="student-pic"/>
           <button id="status" class="active" >Enrolled</button>
-          <button id="status" data-field="prefect">Make Prefect</button>
+          <button id="status" data-field="prefects">Make Prefect</button>
           <button id="status" data-field="squad">Add to Squad</button>
 
           
@@ -216,6 +199,24 @@
       </pop-body>
       </article>
     </div>
+    <div id="onlyonekind" class="modal hide">
+      <div class="warning-dialog">
+        <button class="closebutton">X</button>
+        <h1> <span>Name</span> can't be</h1>
+        <h2>
+          You can only have one prefect of each gender. <br />Remove one.
+        </h2>
+        <p>
+          <button data-action="remove1">
+            remove <span class="student1"></span>
+          </button>
+          <button data-action="remove2">
+            remove <span class="student2"></span>
+          </button>   
+        </p>
+      </div>
+    </div>
+
   
   </body>
 </html>

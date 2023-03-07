@@ -4,7 +4,7 @@ import { getBloodStatus } from "./bloodstatus.js";
 
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
 
-let globalObject ={filter: "*" ,prefects:[], squad:[] , sortBy: "" , sortDir:""};
+let globalObject ={filter: "*" ,prefects:[], squad:[] , sortBy: "firstname" , sortDir:""};
  
  
 start();
@@ -54,15 +54,15 @@ function prepareObjects(jsonData) {
     
     allStudents.push(student);
   }); 
-   //buildList();
-   displayList(allStudents);
+   buildList();
+   //displayList(allStudents);
 }
  //--------------------------------VIEW--------------------------------
  function buildList() {
   const currentList = filterList(allStudents);
   let sortedList = sortList(currentList);
   displayList(sortedList);
-  console.log(sortedList);
+  //console.log(sortedList);
 }
  function displayList(student) {
   // clear the list
@@ -93,25 +93,15 @@ function displayStudent(student) {
    //clone.querySelector("#single-student").classList = "";
   // clone.querySelector("[data-field=gender").textContent = student.gender;
   // clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
-  // if (student.squad) {
-  //   popup.querySelector("[data-field=squad]").classList.remove("hide");  
-  // } 
+  if (student.squad) {
+    clone.querySelector("#squad-icon").classList.remove("hide");  
+  } 
+  if (student.prefect) {
+    clone.querySelector("#prefect-icon").classList.remove("hide");  
+  } 
 
 
-  //put a student in prefect
-  // clone.querySelector("[data-field=prefects]").dataset.prefect = student.prefect;
-  // clone.querySelector("[data-field=prefects]").addEventListener(`click`, isPrefect);
   
-  // function isPrefect(){
-  //   // untoggle a prefect is always possible, but not toggle it (2 winners for each category)
-  //   if(student.prefect === true){
-  //     student.prefect = false;
-  //   } else {
-  //     tryToMakeAPrefect(student);
-  //   }
-  //   // displayList(allStudents);
-  //   buildList();
-  // }
   if(student.house === "Gryffindor"){
     clone.querySelector("#single-student").classList.add("gryffindor");
 
@@ -135,6 +125,9 @@ function displayStudent(student) {
 function displayStudentCard(student){
   const popup = document.querySelector("#student-card");
   popup.classList.remove("hide");
+  popup.querySelector("#dialog").classList ="";
+  
+
   
   popup.querySelector("#image").src = student.image;
   popup.querySelector("[data-field=firstName]").textContent = student.firstname;
@@ -143,7 +136,6 @@ function displayStudentCard(student){
   popup.querySelector("[data-field=lastName]").textContent = student.lastname;
   popup.querySelector("[data-field=gender").textContent = student.gender;
   popup.querySelector("[data-field=house]").textContent = student.house;
-  popup.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
   
   if(student.house === "Gryffindor"){
     popup.querySelector("#dialog").classList.add("gryffindor");
@@ -156,20 +148,37 @@ function displayStudentCard(student){
   }else{
     popup.querySelector("#dialog").classList.add("hufflepuff");
   }
-//add someone to the squad
+  popup.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
+  
+//------------------add someone to the squad-------------------------
   if (student.squad) {
-    popup.querySelector("[data-field=squad]").innerHTML = "squad";
-    //popup.querySelector("[data-field=squad]").classList.add("active");
-    console.log("you are a squad member - change star");
+    popup.querySelector("[data-field=squad]").textContent = "squad";
+    popup.querySelector("[data-field=squad]").classList.add("active");
+    //console.log("you are a squad member - change star");
   } else {
-    popup.querySelector("[data-field=squad]").innerHTML = "Add to Squad";
-    //popup.querySelector("[data-field=squad]").classList.remove("active");
+    popup.querySelector("[data-field=squad]").textContent = "Add to Squad";
+    popup.querySelector("[data-field=squad]").classList.remove("active");
 
-    console.log("you are not squad");
+    //console.log("you are not squad");
   }
-  popup.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
+  
+  
+   //add eventListeners
+    popup.querySelector("[data-field=prefects]").addEventListener(`click`, isPrefect);
+    popup.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
+    
+  function removeEventListeners(){
+    popup.querySelector("[data-field=prefects]").removeEventListener(`click`, isPrefect);
+    popup.querySelector("[data-field=squad]").removeEventListener(`click`, addToSquad);
+  }
+
+
+
+  //popup.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
+  popup.querySelector("[data-field=prefects]").dataset.squad = student.squad;
   
   function addToSquad() {
+    removeEventListeners();
       if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
         student.squad = !student.squad;
         globalObject.squad = allStudents.filter(student => student.squad);
@@ -177,16 +186,48 @@ function displayStudentCard(student){
         alert("you cannot");
       }
       buildList();
-      displayStudentCard(student)
+      displayStudentCard(student);
 
   }
 
-
   popup.querySelector(".closebutton").addEventListener('click', closeStudentCard);
+//------------------make prefect-------------------------
+
+if (student.prefect) {
+  popup.querySelector("[data-field=prefects]").textContent = "Prefect";
+  popup.querySelector("[data-field=prefects]").classList.add("active");
+} else {
+  popup.querySelector("[data-field=prefects]").textContent = "Add to Prefects";
+  popup.querySelector("[data-field=prefects]").classList.remove("active");
+}
+
+popup.querySelector("[data-field=prefects]").dataset.prefect = student.prefect;
+
+//popup.querySelector("[data-field=prefects]").addEventListener(`click`, isPrefect);
+popup.querySelector(".closebutton").addEventListener('click', closeStudentCard);
+
+// function to add or remove prefect
+function isPrefect(){
+  //removeEventListeners();
+  if(student.prefect === true){
+    student.prefect = false;
+    
+  } else {
+    tryToMakeAPrefect(student);
+   
+  }
+  
+  buildList();
+  displayStudentCard(student);
+  
+}
+
+  
   
   function closeStudentCard(){
   popup.classList.add("hide");
   popup.querySelector("#dialog").classList = "";
+  
   // popup.querySelector(".closebutton").removeEventListener("click", closeStudentCard());
   }
 }
@@ -263,8 +304,6 @@ function putImage(lastname, firstname){
 }
 
 function tryToMakeAPrefect(selectedStudent){
- // const prefects = allStudents.filter(student => student.prefect)
- //i made them global so i can call the display list later
  globalObject.prefects = allStudents.filter(student => student.prefect)
   // i'm populating sameHouseAndGender when the selected students match the criteria on the return
   const sameHouseAndGender = globalObject.prefects.filter(student => student.house === selectedStudent.house && student.gender === selectedStudent.gender).shift();
@@ -279,6 +318,7 @@ function tryToMakeAPrefect(selectedStudent){
 
   function removeAorB(studentA, studentB){
     // show names on buttons
+    document.querySelector("#onlyonekind h1 span").textContent =`${studentB.firstname}`;
     document.querySelector("#onlyonekind [data-action=remove1] span").textContent =`${studentA.firstname}`;
     document.querySelector("#onlyonekind [data-action=remove2] span").textContent = `${studentB.firstname}`;
   
@@ -322,6 +362,9 @@ function removePrefect(student){
 
 function makePrefect(student){
   student.prefect = true;
+  if (globalObject.filter !== "*"){
+    buildList();
+  }
 }
 
 }
@@ -421,7 +464,7 @@ function sortList(sortedList){
   function sortByInput(studentA, studentB){
        //console.log(`sorted by ${globalObject.sortBy}`)
        //a-z
-       console.log(`im here and the globalObject sortBy is this ${globalObject.sortBy}`)
+       //console.log(`im here and the globalObject sortBy is this ${globalObject.sortBy}`)
       if(studentA[globalObject.sortBy] < studentB[globalObject.sortBy]){
           return -1 * direction;
       }else{

@@ -221,7 +221,6 @@ td[data-field="prefects"][data-prefect="false"]::after {
 }
 
 /* dialog */
-
 .modal {
   position: fixed;
   top: 0;
@@ -235,12 +234,32 @@ td[data-field="prefects"][data-prefect="false"]::after {
 }
 
 #dialog {
+  background-color: var(--dirty-white);
   box-shadow: 1px 1px 10px #333;
   border-radius: 12px;
   padding: 2em;
-  background-color: var(--dirty-white);
   position: relative;
   width: 30%;
+}
+
+.warning-dialog {
+  background-color: var(--opaque-black);
+  /* box-shadow: 1px 1px 10px #333; */
+  border-radius: 12px;
+  padding: 1rem;
+  position: relative;
+  width: 30%;
+  color: var(--dirty-white);
+  text-align: center;
+}
+
+.warning-dialog h1 {
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 0.7rem;
+  font-weight: 300;
 }
 
 #status {
