@@ -62,6 +62,7 @@ section#filter div {
 
 h1 {
   font-size: 30pt;
+  margin: 0 0 1rem 0;
 }
 
 h2 {
@@ -79,6 +80,11 @@ h3 {
 
 h4 {
   font-size: 16px;
+}
+
+h5 {
+  font-size: 0.7rem;
+  font-weight: 300;
 }
 
 button {
@@ -259,11 +265,6 @@ td[data-field="prefects"][data-prefect="false"]::after {
 
 .warning-dialog h1 {
   font-size: 1.5rem;
-}
-
-h2 {
-  font-size: 0.7rem;
-  font-weight: 300;
 }
 
 #status {

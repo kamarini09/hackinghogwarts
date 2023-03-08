@@ -10,6 +10,7 @@ let globalObject ={filter: "*" ,prefects:[], squad:[] , sortBy: "firstname" , so
 start();
 
 const allStudents = [];
+const expelledStudents =[];
 
 const Student = {
     firstName: "",
@@ -27,6 +28,7 @@ function start() {
   console.log("ready");
   loadJSON();
   triggerButtons();
+  
 }
 
 //--------------------MODEL--------------------------
@@ -55,9 +57,16 @@ function prepareObjects(jsonData) {
     allStudents.push(student);
   }); 
    buildList();
+   showNumbers();
    //displayList(allStudents);
 }
  //--------------------------------VIEW--------------------------------
+ function showNumbers(){
+  document.querySelector(".total-numbers .enrolled span").textContent = allStudents.length;
+  document.querySelector(".total-numbers .expelled span").textContent = expelledStudents.length;
+
+
+ }
  function buildList() {
   const currentList = filterList(allStudents);
   let sortedList = sortList(currentList);
@@ -77,7 +86,7 @@ function prepareObjects(jsonData) {
   }
 
   // build a new list
- 
+  
 }
 
 function displayStudent(student) {
@@ -113,6 +122,12 @@ function displayStudent(student) {
   }else{
     clone.querySelector("#single-student").classList.add("hufflepuff");
   }
+
+  
+  document.querySelector(".house-Gryffindor span").textContent = allStudents.filter(student => student.house==="Gryffindor").length;
+  document.querySelector(".house-Slytherin span").textContent = allStudents.filter(student => student.house==="Slytherin").length;
+  document.querySelector(".house-Ravenclaw span").textContent = allStudents.filter(student => student.house==="Ravenclaw").length;
+  document.querySelector(".house-Hufflepuff span").textContent = allStudents.filter(student => student.house==="Hufflepuff").length;
 
 
   clone.querySelector("div#single-student").addEventListener(`click`, () => {displayStudentCard(student)});
@@ -170,6 +185,8 @@ function displayStudentCard(student){
   function removeEventListeners(){
     popup.querySelector("[data-field=prefects]").removeEventListener(`click`, isPrefect);
     popup.querySelector("[data-field=squad]").removeEventListener(`click`, addToSquad);
+   popup.querySelector("[data-field=expell]").removeEventListener('click', expellStudent);
+
   }
 
 
@@ -222,8 +239,36 @@ function isPrefect(){
   
 }
 
+//------------------expell student-------------------------
+popup.querySelector("[data-field=expell]").addEventListener('click', expellStudent);
+
+
+function expellStudent(){
+  removeEventListeners();
+  let oneStudent = allStudents.splice(allStudents.indexOf(student), 1)[0];
+  expelledStudents.push(oneStudent);
+  console.log("i expelled a student");
+  console.log(student);
+  console.log(allStudents);
+  console.log(expelledStudents);
+  buildList();
+  showNumbers()
+}
+
+
+
+ 
+
+// console.log(allStudents);
+// console.log(expelledStudents );
+
   
-  
+
+
+
+//------------------close pop up------------------------
+
+
   function closeStudentCard(){
   popup.classList.add("hide");
   popup.querySelector("#dialog").classList = "";
@@ -378,6 +423,10 @@ function triggerButtons(){
   document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", filterByPrefect);}); 
   document.querySelectorAll("[data-filter=squad]").forEach((each) =>{each.addEventListener("click", filterBySquad);});
   document.querySelectorAll("#sort-options").forEach((each) =>{each.addEventListener("click", sortInput);});
+  document.querySelectorAll("[data-filter=expelled]").forEach((each) =>{each.addEventListener("click", showExpelled);});
+  document.querySelectorAll("[data-filter=enrolled]").forEach((each) =>{each.addEventListener("click", showEnrolled);});
+
+
   // document.querySelector("#sort-options").addEventListener("change", (event) => {
   //   let selectedOption = event.target.selectedOptions[0];
   //   globalObject.sortBy = selectedOption.dataset.sort;
@@ -430,6 +479,13 @@ function triggerButtons(){
     buildList();
     console.log(globalObject.squad);
   }
+function showExpelled(){
+  displayList(expelledStudents);
+}
+
+function showEnrolled(){
+  displayList(allStudents);
+}
 
 //--------------------sorting--------------------------
 
