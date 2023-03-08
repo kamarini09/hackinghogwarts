@@ -3,6 +3,10 @@
   --opaque-black: #3c3c3c;
   --white: #fdfdfd;
   --dirty-white: #d1d1d1;
+  --gryffindor: #bf1120;
+  --slytherin: #29a649;
+  --hufflepuff: #f2be22;
+  --ravenclaw: #03658c;
 }
 
 body {
@@ -205,19 +209,19 @@ td[data-field="prefects"][data-prefect="false"]::after {
 }
 
 #single-student.gryffindor {
-  border: solid 0.8px red;
+  border: solid 1.5px var(--gryffindor);
 }
 
 #single-student.slytherin {
-  border: solid 0.8px green;
+  border: solid 1.5px var(--slytherin);
 }
 
 #single-student.hufflepuff {
-  border: solid 0.8px yellow;
+  border: solid 1px var(--hufflepuff);
 }
 
 #single-student.ravenclaw {
-  border: solid 0.8px blue;
+  border: solid 1.5px var(--ravenclaw);
 }
 
 /* dialog */
