@@ -11,34 +11,34 @@
     <title>Hogwarts List</title>
   </head>
   <body>
-    <header><h1>Hogwarts</h1></header>
+   
     <main>
       
       <section id="aside">
-
+        <h1>Hogwarts</h1>
         <div class="admin">
           <img src="images/umbridge.jpeg" alt="propic" />
           <p>Hello, <i>Dolores Umbridge!</i></p>
         </div>
         <article class="house-Gryffindor">
-          <img src="" alt="house-crest" />
+          <img src="" alt="" />
           <h4>Gryffindor</h4>
-          <p><span>00</span> students</p>
+          <p><span data-field=student-number>00</span> students</p>
         </article>
         <article class="house-Slytherin">
-          <img src="" alt="house-crest" />
+          <img src="" alt="" />
           <h4>Slytherin</h4>
-          <p><span id="students-number">00</span> students</p>
+          <p><span>00</span> students</p>
         </article>
         <article class="house-Ravenclaw">
-          <img src="" alt="house-crest" />
+          <img src="" alt=""/>
           <h4>Ravenclaw</h4>
-          <p><span id="students-number">00</span> students</p>
+          <p><span>00</span> students</p>
         </article>
         <article class="house-Hufflepuff">
-          <img src="" alt="house-crest" />
+          <img src="" alt="" />
           <h4>Hufflepuff</h4>
-          <p><span id="students-number">00</span> students</p>
+          <p><span>00</span> students</p>
         </article>
         <div class="total-numbers">
           <p class="enrolled">Enrolled students <span>00</span></p>
@@ -49,7 +49,10 @@
       <div id="main-area">
 
         <section class="header">
-          <h2>Class 1991</h2>
+          <div id="year-and-hack">
+            <h2>Class 1991</h2>
+            <button id="hacking">Click here</button>
+          </div>
           <section id="filter">
             <div>
               <h3>Houses</h3>
@@ -106,7 +109,7 @@
            <!-----------------------------sorting--------------------------->
            <div id="drop-down-menu">
              <select id="sort-options">
-              <option data-action="sort" > Sort by </option>
+            
               <option data-action="sort" data-sort-direction="asc" data-sort="firstname">First name: A - Z</option>
               <option data-action="sort" data-sort-direction="desc" data-sort="firstname">First name: Z - A</option>
               <option data-action="sort" data-sort-direction="asc" data-sort="lastname">Last name: A - Z</option>

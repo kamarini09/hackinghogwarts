@@ -5,6 +5,7 @@ import { getBloodStatus } from "./bloodstatus.js";
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
 
 let globalObject ={filter: "*" ,prefects:[], squad:[] , sortBy: "firstname" , sortDir:""};
+let hackingFlag;
  
  
 start();
@@ -22,7 +23,8 @@ const Student = {
     house: "",
     bloodstatus: "",
     squad: false ,
-    prefect: false
+    prefect: false,
+    isHacker: null
 };
 function start() {
   console.log("ready");
@@ -53,6 +55,7 @@ function prepareObjects(jsonData) {
     student.lastname = makeLastNameCapital(everyName.lastName);
     student.image = putImage(everyName.lastName , everyName.firstName);
     student.bloodstatus = getBloodStatus(everyName.lastName);
+
     
     allStudents.push(student);
   }); 
@@ -74,18 +77,11 @@ function prepareObjects(jsonData) {
   //console.log(sortedList);
 }
  function displayList(student) {
+  showNumbers();
   // clear the list
   document.querySelector("section.students-list").innerHTML = "";
-
-  if(document.querySelector("[data-filter=squad]").classList.contains('active')){
-    globalObject.squad.forEach(displayStudent);
-     console.log("im trigered")
-
-  }else{
-    student.forEach(displayStudent);
-  }
-
-  // build a new list
+  student.forEach(displayStudent);
+// build a new list
   
 }
 
@@ -96,12 +92,9 @@ function displayStudent(student) {
   // set clone data
   clone.querySelector("#image").src = student.image;
   clone.querySelector("[data-field=firstName]").textContent = student.firstname;
-  // clone.querySelector("[data-field=nickName").textContent = student.nickname;
   clone.querySelector("[data-field=lastName]").textContent = student.lastname;
   clone.querySelector("#blood-status-icon").src = `images/icon-${student.bloodstatus}.svg`;
-   //clone.querySelector("#single-student").classList = "";
-  // clone.querySelector("[data-field=gender").textContent = student.gender;
-  // clone.querySelector("[data-field=bloodStatus]").textContent = student.bloodstatus;
+   
   if (student.squad) {
     clone.querySelector("#squad-icon").classList.remove("hide");  
   } 
@@ -141,9 +134,6 @@ function displayStudentCard(student){
   const popup = document.querySelector("#student-card");
   popup.classList.remove("hide");
   popup.querySelector("#dialog").classList ="";
-  
-
-  
   popup.querySelector("#image").src = student.image;
   popup.querySelector("[data-field=firstName]").textContent = student.firstname;
   popup.querySelector("[data-field=middleName]").textContent = student.middlename;
@@ -244,6 +234,10 @@ popup.querySelector("[data-field=expell]").addEventListener('click', expellStude
 
 
 function expellStudent(){
+  if(student.isHacker===true){
+    alert("you can not be expelled")
+
+  }else{
   removeEventListeners();
   let oneStudent = allStudents.splice(allStudents.indexOf(student), 1)[0];
   expelledStudents.push(oneStudent);
@@ -252,7 +246,8 @@ function expellStudent(){
   console.log(allStudents);
   console.log(expelledStudents);
   buildList();
-  showNumbers()
+  showNumbers();
+  }
 }
 
 
@@ -433,6 +428,8 @@ function triggerButtons(){
   //   globalObject.sortDir = selectedOption.dataset.sortDirection;
   //   buildList()});
   document.querySelector("#searchbox").addEventListener("input", liveSearch);
+  document.querySelector("#hacking").addEventListener("click", hackTheSystem);
+
 }
 //--------------------filtering--------------------------
 
@@ -558,3 +555,48 @@ function liveSearch() {
   }
   }}
 
+  function hackTheSystem(){
+    console.log("hacked!");
+    hackingFlag = true;
+ 
+    const kama = createKama();
+    const sofia = createSofia()
+    allStudents.push(kama);
+    allStudents.push(sofia);
+   displayList(allStudents);
+    console.log(allStudents);
+
+  }
+  
+  function createKama(){
+    const kama = Object.create(allStudents)
+    kama.firstname = "Kamarini";
+    kama.lastname= "Moragianni";
+    kama.middlename= "";
+    kama.nickname= "Koukoumafka";
+    kama.gender= "girl";
+    kama.image= "";
+    kama.house= "Hufflepuff";
+    kama.bloodstatus= "Muggle";
+    kama.squad= false ;
+    kama.prefect= false;
+    kama.isHacker = true;
+    return kama;
+  }
+  
+  function createSofia(){
+    const sofia = Object.create(allStudents);
+    sofia.firstname = "Sofia";
+    sofia.lastname = "Amoroso";
+    sofia.middlename= "";
+    sofia.nickname= "Olivia";
+    sofia.gender= "Girl";
+    sofia.image= "images/sofia.png";
+    sofia.house= "Ravenclaw";
+    sofia.bloodstatus= "Muggle";
+    sofia.squad= false;
+    sofia.prefect= false;
+    sofia.isHacker = true;
+
+    return sofia;
+  }

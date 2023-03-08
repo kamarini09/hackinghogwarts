@@ -370,3 +370,8 @@ button.closebutton {
 .hufflepuff {
   border: solid 3px yellow;
 }
+
+#year-and-hack {
+  display: flex;
+  justify-content: space-between;
+}
