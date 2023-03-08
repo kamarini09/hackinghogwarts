@@ -31,4 +31,27 @@ function loadJSON() {
     }
 
 }
+
+// export function messUpBlood(lastname){
+    
+//     let blood;
+//     if(half.includes(lastname)){
+//         blood = "Pure-Blood"
+       
+//     }
+//     else if(!pure.includes(lastname) && !half.includes(lastname)){
+//        blood = "Pure-Blood"
+//     }else{
+//         blood = generateRandomBloodType()
+//     }
+ 
+//     return blood;
+
+//   function generateRandomBloodType() {
+//     const randomNumbers = Math.floor(Math.random() * 3);
+//     const bloodTypes = ["Muggle", "Half-Blood", "Pure-Blood"];
+//     return bloodTypes[randomNumbers];
+//   }
+// };
+
  

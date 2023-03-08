@@ -1,11 +1,11 @@
 "use strict";
-import { getBloodStatus } from "./bloodstatus.js";
+import { getBloodStatus} from "./bloodstatus.js";
 
 
 const endpoint = "https://petlatkea.dk/2021/hogwarts/students.json";
 
 let globalObject ={filter: "*" ,prefects:[], squad:[] , sortBy: "firstname" , sortDir:""};
-let hackingFlag;
+let hackingFlag = false;
  
  
 start();
@@ -54,7 +54,20 @@ function prepareObjects(jsonData) {
     student.nickname = everyName.nickName;
     student.lastname = makeLastNameCapital(everyName.lastName);
     student.image = putImage(everyName.lastName , everyName.firstName);
-    student.bloodstatus = getBloodStatus(everyName.lastName);
+    //student.bloodstatus = getBloodStatus(everyName.lastName);
+
+
+    
+    
+    
+     if(hackingFlag===true){
+      student.bloodstatus = messUpBlood(everyName.lastName);
+     }else{
+     student.bloodstatus = getBloodStatus(everyName.lastName);
+     }
+  
+  
+   
 
     
     allStudents.push(student);
@@ -93,6 +106,7 @@ function displayStudent(student) {
   clone.querySelector("#image").src = student.image;
   clone.querySelector("[data-field=firstName]").textContent = student.firstname;
   clone.querySelector("[data-field=lastName]").textContent = student.lastname;
+
   clone.querySelector("#blood-status-icon").src = `images/icon-${student.bloodstatus}.svg`;
    
   if (student.squad) {
@@ -116,6 +130,7 @@ function displayStudent(student) {
     clone.querySelector("#single-student").classList.add("hufflepuff");
   }
 
+  
   
   document.querySelector(".house-Gryffindor span").textContent = allStudents.filter(student => student.house==="Gryffindor").length;
   document.querySelector(".house-Slytherin span").textContent = allStudents.filter(student => student.house==="Slytherin").length;
@@ -557,15 +572,16 @@ function liveSearch() {
 
   function hackTheSystem(){
     console.log("hacked!");
+    if(hackingFlag === false){
+    
     hackingFlag = true;
- 
     const kama = createKama();
-    const sofia = createSofia()
+    const sofia = createSofia();
     allStudents.push(kama);
     allStudents.push(sofia);
-   displayList(allStudents);
-    console.log(allStudents);
-
+    messUpBlood();
+    buildList();
+  }
   }
   
   function createKama(){
@@ -600,3 +616,19 @@ function liveSearch() {
 
     return sofia;
   }
+
+  
+ 
+  function messUpBlood(){
+    allStudents.forEach((student) => {
+      const randomNumbers = Math.floor(Math.random() * 3);
+      const bloodTypes = ["Muggle", "Half-Blood", "Pure-Blood"];
+      if (student.bloodstatus === "Half-Blood" || student.bloodstatus === "Muggle") {
+        student.bloodstatus = "Pure-Blood";
+      } else if (student.bloodstatus === "Pure-Blood") {
+        student.bloodstatus = bloodTypes[randomNumbers];
+      }
+    });
+  }
+  
+  
