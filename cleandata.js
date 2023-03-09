@@ -152,6 +152,7 @@ function displayStudent(student) {
 function displayStudentCard(student){
   const popup = document.querySelector("#student-card");
   popup.classList.remove("hide");
+  expellButton();
   popup.querySelector("#dialog").classList ="";
   popup.querySelector("#image").src = student.image;
   popup.querySelector("[data-field=firstName]").textContent = student.firstname;
@@ -283,6 +284,12 @@ popup.querySelector("[data-field=expell]").addEventListener('click', expellStude
 
 
 function expellStudent(){
+   document.querySelector("[data-field=expell]").classList.remove("active");
+   document.querySelector("[data-field=expell]").classList.add("expelled");
+   document.querySelector("[data-field=expell]").textContent="Expelled";
+
+
+
   if(student.isHacker){
     document.querySelector("#noExpell").classList.remove("hide");
     document.querySelector("#noExpell h1 span").textContent =`${student.firstname}`;
@@ -456,6 +463,7 @@ function makePrefect(student){
 
 
 function triggerButtons(){
+  document.querySelector("#hacking").addEventListener("click", hackTheSystem);
   document.querySelectorAll(".filter").forEach((each) =>{each.addEventListener("click", filterInput);}); 
   document.querySelectorAll("[data-filter=prefects]").forEach((each) =>{each.addEventListener("click", filterByPrefect);}); 
   document.querySelectorAll("[data-filter=squad]").forEach((each) =>{each.addEventListener("click", filterBySquad);});
@@ -470,7 +478,7 @@ function triggerButtons(){
   //   globalObject.sortDir = selectedOption.dataset.sortDirection;
   //   buildList()});
   document.querySelector("#searchbox").addEventListener("input", liveSearch);
-  document.querySelector("#hacking").addEventListener("click", hackTheSystem);
+
 
 }
 //--------------------filtering--------------------------
@@ -610,8 +618,8 @@ function liveSearch() {
   function hackTheSystem(){
     console.log("hacked!");
     if(hackingFlag === false){
-    
     hackingFlag = true;
+    document.querySelector("#pishing").classList.add("hide");
     const kama = createKama();
     const sofia = createSofia();
     allStudents.push(kama);
@@ -672,3 +680,25 @@ function liveSearch() {
   function pishingPopUp(){
     document.querySelector("#pishing").classList.remove("hide");
   }
+
+  function expellButton(){
+    const statusButton = document.querySelector("[data-field=expell]");
+    statusButton.addEventListener('mouseover', () => {
+      statusButton.textContent = "Expell";
+    });
+    
+    statusButton.addEventListener('mouseout', () => {
+      statusButton.textContent = 'Enrolled';
+    });
+  }
+  
+  // function removeExpellButton(){
+  //   const statusButton = document.querySelector("[data-field=expell]");
+  //   statusButton.removeEventListener('mouseover', () => {
+  //     statusButton.textContent = "Expell";
+  //   });
+    
+  //   statusButton.removeEventListener('mouseout', () => {
+  //     statusButton.textContent = 'Enrolled';
+  //   });
+  // }

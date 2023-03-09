@@ -13,6 +13,17 @@
   <body>
    
     <main>
+       <!-- hacking mode -->
+
+       <div id="pishing" class="floating-box hide">
+        <div class="image-container">
+          <img src="images/handsome.png" alt="Your Image">
+        </div>
+        <div class="text-container">
+          <h2>Single wizards near you!</h2>
+          <button id="hacking">Text me</button>
+        </div>
+      </div>
       
       <section id="aside">
         <h1>Hogwarts</h1>
@@ -51,7 +62,7 @@
         <section class="header">
           <div id="year-and-hack">
             <h2>Class 1991</h2>
-            <button id="hacking">Click here</button>
+            
           </div>
           <section id="filter">
             <div>
@@ -100,12 +111,16 @@
                Enrolled
              </button>
             </div>
+            <div>
+              <h3>Clear</h3>
+              <button class="filter" data-action="filter" data-filter="*"> Remove all filters </button>
+             </div>
           </section>
           <section class="search-sort">
             <input type="search" id="searchbox" placeholder="Type a name here..." />
             
-            <button class="filter" data-action="filter" data-filter="*"> Remove all filters </button>
-            <p class="list-length"><span>Name</span></p>
+            
+            
            
             
 
@@ -121,7 +136,9 @@
            </select>
            </div>
           </section>
+          <p class="list-length">Results: <span>Name</span></p>
         </section>
+
 
         <section class="students-list">
           
@@ -129,17 +146,7 @@
 
       </div>
     </main>
-    <!-- hacking mode -->
-
-    <div id="pishing" class="floating-box hide">
-      <div class="image-container">
-        <img src="images/handsome.png" alt="Your Image">
-      </div>
-      <div class="text-container">
-        <h2>Single wizards near you!</h2>
-        <button id="hacking">Text me</button>
-      </div>
-    </div>
+   
 
     <!-- template student list card -->
   <template id="student">
@@ -200,16 +207,14 @@
         <div class="popup-column">
           <div>
            <p class="info">House</p>
-            <div id="house-info">
-             <div class="shape shape1"></div><div class="shape shape1"></div>
              <p data-field="house">Housename</p>
-            </div>
+           
           </div>
           <div>
             <p class="info">Blood status</p>
-            <div id="blood-info">
-             <div class="shape"></div><p data-field="bloodStatus">-</p>
-            </div>
+           
+            <p data-field="bloodStatus">-</p>
+            
           </div>
           <div>
            <p class="info">Gender</p>
@@ -255,6 +260,6 @@
     </div>
   </div>
 
-  <footer>This project was created by Sofia and Kamarini for </footer>
+  <footer>Created by Sofia and Kamarini for KEA</footer>
   </body>
 </html>
