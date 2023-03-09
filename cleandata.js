@@ -87,6 +87,7 @@ function prepareObjects(jsonData) {
   const currentList = filterList(allStudents);
   let sortedList = sortList(currentList);
   displayList(sortedList);
+  document.querySelector(".list-length span").textContent = sortedList.length;
   //console.log(sortedList);
 }
  function displayList(student) {
@@ -136,6 +137,8 @@ function displayStudent(student) {
   document.querySelector(".house-Slytherin span").textContent = allStudents.filter(student => student.house==="Slytherin").length;
   document.querySelector(".house-Ravenclaw span").textContent = allStudents.filter(student => student.house==="Ravenclaw").length;
   document.querySelector(".house-Hufflepuff span").textContent = allStudents.filter(student => student.house==="Hufflepuff").length;
+ 
+
 
 
   clone.querySelector("div#single-student").addEventListener(`click`, () => {displayStudentCard(student)});
@@ -495,6 +498,8 @@ function triggerButtons(){
   function filterByPrefect(){
     globalObject.prefects = allStudents.filter(student => student.prefect);
     displayList(globalObject.prefects);
+    document.querySelector(".list-length span").textContent = globalObject.prefects.length;
+
     console.log(globalObject.prefects);
   }
 
@@ -503,15 +508,21 @@ function triggerButtons(){
     globalObject.squad = allStudents.filter(student => student.squad);
 
     displayList(globalObject.squad);
+  document.querySelector(".list-length span").textContent = globalObject.squad.length;
+
     //buildList();
     console.log("filterBySquad @@@@@@@@",globalObject.squad);
   }
 function showExpelled(){
   displayList(expelledStudents);
+  document.querySelector(".list-length span").textContent = expelledStudents.length;
+
 }
 
 function showEnrolled(){
   displayList(allStudents);
+  document.querySelector(".list-length span").textContent = allStudents.length;
+
 }
 
 //--------------------sorting--------------------------
@@ -606,12 +617,13 @@ function liveSearch() {
     kama.middlename= "";
     kama.nickname= "Koukoumafka";
     kama.gender= "girl";
-    kama.image= "";
+    kama.image= "images/kamarini.png";
     kama.house= "Hufflepuff";
     kama.bloodstatus= "Muggle";
     kama.squad= false ;
     kama.prefect= false;
     kama.isHacker = true;
+
     return kama;
   }
   
