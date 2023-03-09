@@ -30,6 +30,7 @@ function start() {
   console.log("ready");
   loadJSON();
   triggerButtons();
+  setTimeout(pishingPopUp, 8000);
   
 }
 
@@ -220,10 +221,17 @@ function displayStudentCard(student){
         student.squad = !student.squad;
         globalObject.squad = allStudents.filter(student => student.squad);
       } else {
-        alert("you cannot");
+        document.querySelector("#noSquad").classList.remove("hide");
+        document.querySelector("#noSquad h1 span").textContent =`${student.firstname}`;
+        document.querySelector("#noSquad .closebutton").addEventListener("click", closeDialog);
       }
+      function closeDialog(){
+      document.querySelector("#noSquad").classList.add("hide");
+      document.querySelector("#noSquad .closebutton").removeEventListener("click", closeDialog);
+        }
+
       buildList();
-    displayStudentCard(student);
+      displayStudentCard(student);
     }
 
     function removeFromSquad(){
@@ -275,20 +283,21 @@ popup.querySelector("[data-field=expell]").addEventListener('click', expellStude
 
 
 function expellStudent(){
-  if(student.isHacker===true){
-    alert("you can not be expelled")
-
-  }else{
-  //removeEventListeners();
+  if(student.isHacker){
+    document.querySelector("#noExpell").classList.remove("hide");
+    document.querySelector("#noExpell h1 span").textContent =`${student.firstname}`;
+    document.querySelector("#noExpell .closebutton").addEventListener("click", closeDialog);
+  }else {
+  removeEventListeners();
   let oneStudent = allStudents.splice(allStudents.indexOf(student), 1)[0];
   expelledStudents.push(oneStudent);
-  console.log("i expelled a student");
-  console.log(student);
-  console.log(allStudents);
-  console.log(expelledStudents);
   buildList();
   showNumbers();
   }
+  function closeDialog(){
+    document.querySelector("#noExpell").classList.add("hide");
+    document.querySelector("#noExpell .closebutton").removeEventListener("click", closeDialog);
+   }
 }
 
 //------------------close pop up------------------------
@@ -330,7 +339,7 @@ function makeLastNameCapital(x){
 function createName(fullname){
     let firstName = fullname.substring(0, fullname.indexOf(" "));
     let lastName = fullname.substring(fullname.lastIndexOf(" ")+1);
-    let nickName;
+    let nickName = "-";
     let middleName;
    
     //this is for the single name
@@ -351,7 +360,9 @@ function createName(fullname){
       middleName = fullname.substring(fullname.indexOf(" ")+1, isNick -1);
     }
     
-
+    if (!middleName.trim()) {
+      middleName = "-";
+    }
 
     return {firstName , middleName , nickName , lastName}
   
@@ -658,3 +669,6 @@ function liveSearch() {
     });
   }
   
+  function pishingPopUp(){
+    document.querySelector("#pishing").classList.remove("hide");
+  }

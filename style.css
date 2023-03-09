@@ -35,6 +35,7 @@ main {
   display: flex;
   gap: 1rem;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
 .admin p {
@@ -42,11 +43,11 @@ main {
   font-weight: 100;
 }
 
-/* Filter section */
-.header {
-  padding-bottom: 2rem;
-  border-bottom: solid 0.5px var(--dirty-white);
+#year-and-hack {
+  display: flex;
+  justify-content: space-between;
 }
+/* Filter section */
 
 section#filter {
   display: flex;
@@ -87,7 +88,9 @@ h5 {
   font-weight: 300;
 }
 
-button {
+/*  ------- BUTTONS -------  */
+#main-area button,
+section.search-sort button {
   background-color: var(--black);
   border: solid 0.8px var(--dirty-white);
   border-radius: 20px;
@@ -95,16 +98,73 @@ button {
   color: var(--white);
 }
 
-button:hover {
+#main-area button:hover,
+section.search-sort button:hover {
   background-color: var(--dirty-white);
   color: var(--black);
 }
 
 .active {
-  background-color: var(--dirty-white);
-  color: var(--black);
+  background-color: var(--gryffindor);
+  color: var(--white);
 }
 
+/* ------- popup buttons ------- */
+
+#status {
+  background-color: #9c9c9c;
+  border: solid 0.8px var(--dirty-white);
+  border-radius: 20px;
+  padding: 0.2rem 0 0.2rem 0;
+  color: var(--dirty-white);
+  width: 100%;
+  margin-top: 0.8rem;
+}
+
+#status.active {
+  background-color: #74c126;
+  color: darkgreen;
+}
+
+button#status:hover {
+  background-color: var(--opaque-black);
+  color: var(--dirty-white);
+  width: 100%;
+  margin-top: 0.8rem;
+  padding: 0.2rem 0 0.2rem 0;
+}
+
+button#status:nth-of-type(1):hover {
+  background-color: var(--dirty-white);
+  border: solid 1px red;
+  color: var(--opaque-black);
+}
+
+button.closebutton {
+  position: absolute;
+  background-color: var(--dirty-white);
+  color: var(--black);
+  border: solid 2px var(--black);
+  right: -1em;
+  top: -1em;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+button.closebutton:hover {
+  position: absolute;
+  background-color: var(--opaque-black);
+  border: solid 2px var(--dirty-white);
+  color: var(--dirty-white);
+  right: -1em;
+  top: -1em;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+}
+
+/* ** */
 .search-sort {
   display: flex;
   justify-content: space-between;
@@ -166,7 +226,7 @@ td[data-field="prefects"][data-prefect="false"]::after {
   /* grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); */
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 1rem;
-  padding-top: 1em;
+  padding-top: 1rem;
 }
 
 #student-fullname img {
@@ -178,36 +238,12 @@ td[data-field="prefects"][data-prefect="false"]::after {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  align-items: center;
-  padding: 0.5rem 1rem 0.5rem 1rem;
   gap: 0.5rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem 0.5rem 1rem;
   border-radius: 1rem;
   max-height: 4rem;
-  justify-content: space-between;
-}
-#roles {
-  display: flex;
-  flex-direction: row;
-  gap: 0.2rem;
-}
-#squad-icon {
-  height: 1rem;
-}
-#blood-status-icon {
-  height: 1rem;
-}
-#prefect-icon {
-  height: 1rem;
-}
-
-#student-fullname {
-  display: flex;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-#student-fullname p {
-  font-size: 1rem;
 }
 
 #single-student.hidden {
@@ -230,7 +266,18 @@ td[data-field="prefects"][data-prefect="false"]::after {
   border: solid 1.5px var(--ravenclaw);
 }
 
+#student-fullname {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+#student-fullname p {
+  font-size: 0.8rem;
+}
+
 /* dialog */
+
 .modal {
   position: fixed;
   top: 0;
@@ -254,7 +301,6 @@ td[data-field="prefects"][data-prefect="false"]::after {
 
 .warning-dialog {
   background-color: var(--opaque-black);
-  /* box-shadow: 1px 1px 10px #333; */
   border-radius: 12px;
   padding: 1rem;
   position: relative;
@@ -267,32 +313,10 @@ td[data-field="prefects"][data-prefect="false"]::after {
   font-size: 1.5rem;
 }
 
-#status {
-  background-color: #9c9c9c;
-  color: var(--dirty-white);
-  width: 100%;
-  margin-top: 0.8rem;
-  padding: 0.2rem 0 0.2rem 0;
+#expell-img {
+  max-width: 40%;
 }
 
-#status.active {
-  background-color: #74c126;
-  color: darkgreen;
-}
-
-button#status:hover {
-  background-color: var(--opaque-black);
-  color: var(--dirty-white);
-  width: 100%;
-  margin-top: 0.8rem;
-  padding: 0.2rem 0 0.2rem 0;
-}
-
-button#status:nth-of-type(1):hover {
-  background-color: var(--dirty-white);
-  border: solid 1px red;
-  color: var(--opaque-black);
-}
 p.info {
   font-size: 10pt;
   font-weight: 100;
@@ -309,6 +333,24 @@ p.info {
   display: flex;
   align-items: center;
   gap: 0.1rem;
+}
+
+#roles {
+  display: flex;
+  flex-direction: row;
+  gap: 0.2rem;
+}
+
+#blood-status-icon {
+  height: 1rem;
+}
+
+#squad-icon {
+  height: 1rem;
+}
+
+#prefect-icon {
+  height: 1rem;
 }
 
 .popup-column div p:nth-of-type(2),
@@ -329,15 +371,6 @@ div.shape {
   border-radius: 50%;
 }
 
-button.closebutton {
-  position: absolute;
-  right: -1em;
-  top: -1em;
-  border-radius: 50%;
-  width: 2em;
-  height: 2em;
-}
-
 .hide {
   display: none;
 }
@@ -356,22 +389,68 @@ button.closebutton {
 }
 
 .gryffindor {
-  border: solid 3px red;
+  border: solid 3px var(--gryffindor);
 }
 
 .slytherin {
-  border: solid 3px green;
+  border: solid 3px var(--slytherin);
 }
 
 .ravenclaw {
-  border: solid 3px blue;
+  border: solid 3px var(--ravenclaw);
 }
 
 .hufflepuff {
-  border: solid 3px yellow;
+  border: solid 3px var(--hufflepuff);
 }
 
-#year-and-hack {
+/* pishing */
+
+.floating-box {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 30%;
+  background-color: var(--opaque-black);
+  z-index: 9999;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   display: flex;
+  align-items: center;
   justify-content: space-between;
+}
+
+.image-container {
+  width: 100px;
+  height: 100px;
+  margin: 0 0 0 20px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.text-container {
+  flex: 1;
+  margin: 20px;
+}
+
+.text-container h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.text-container button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.text-container button:hover {
+  background-color: white;
+  color: #4caf50;
 }

@@ -129,6 +129,17 @@
 
       </div>
     </main>
+    <!-- hacking mode -->
+
+    <div id="pishing" class="floating-box hide">
+      <div class="image-container">
+        <img src="images/handsome.png" alt="Your Image">
+      </div>
+      <div class="text-container">
+        <h2>Single wizards near you!</h2>
+        <button id="hacking">Text me</button>
+      </div>
+    </div>
 
     <!-- template student list card -->
   <template id="student">
@@ -168,18 +179,22 @@
           <div>
             <p class="info">First Name</p>
             <p data-field="firstName">-</p>
+            
           </div>
           <div>
             <p class="info">Middle Name</p>
             <p data-field="middleName">-</p>
+           
           </div>
           <div>
             <p class="info">Lastname</p>
             <p data-field="lastName">-</p>
+           
           </div>
           <div>
             <p class="info">Nickname</p>
             <p data-field="nickName">-</p>
+         
           </div>
         </div>
         <div class="popup-column">
@@ -206,6 +221,7 @@
       </article>
     </div>
     <div id="onlyonekind" class="modal hide">
+      
       <div class="warning-dialog">
         <button class="closebutton">X</button>
         <h1> <span>Name</span> can't be</h1>
@@ -222,7 +238,23 @@
         </p>
       </div>
     </div>
+<!-- dialogs -->
+<div id="noSquad" class="modal hide">
+  <div class="warning-dialog">
+   <button class="closebutton">x</button>
+     <h1><span>Name</span> can't be in the squad.</h1>
+     <h5> Only pure-blood and slytherin students can be part of it.</h5>
+   </div>
+ </div>
 
-  
+ <div id="noExpell" class="modal hide">
+   <div class="warning-dialog">
+    <button class="closebutton">x</button>
+      <h1><span>Name</span> can't be expelled.</h1>
+      <img id="expell-img" src="images/hell-no.jpg" alt="">
+    </div>
+  </div>
+
+  <footer>This project was created by Sofia and Kamarini for </footer>
   </body>
 </html>
