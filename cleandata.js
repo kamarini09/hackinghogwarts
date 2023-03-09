@@ -181,7 +181,8 @@ function displayStudentCard(student){
 
     //console.log("you are not squad");
   }
-  
+   
+  // removeEventListeners();
   
    //add eventListeners
     popup.querySelector("[data-field=prefects]").addEventListener(`click`, isPrefect);
@@ -197,10 +198,21 @@ function displayStudentCard(student){
 
 
   //popup.querySelector("[data-field=squad]").addEventListener(`click`, addToSquad);
-  popup.querySelector("[data-field=prefects]").dataset.squad = student.squad;
+   //popup.querySelector("[data-field=squad]").dataset.squad = student.squad;
   
   function addToSquad() {
-    removeEventListeners();
+    popup.querySelector("[data-field=squad]").removeEventListener(`click`, addToSquad);
+    addToSquad2();
+    
+    if(hackingFlag){
+     setTimeout( removeFromSquad, 3000);
+     globalObject.squad = allStudents.filter(student => student.squad);
+    console.log("addToSquad @@@@@@@@",globalObject.squad);
+
+    }
+
+    function addToSquad2(){
+      console.log("im in the add to squad -not hacked mode");
       if (student.bloodstatus === "Pure-Blood" || student.house === "Slytherin") {
         student.squad = !student.squad;
         globalObject.squad = allStudents.filter(student => student.squad);
@@ -208,8 +220,16 @@ function displayStudentCard(student){
         alert("you cannot");
       }
       buildList();
-      displayStudentCard(student);
+    displayStudentCard(student);
+    }
 
+    function removeFromSquad(){
+      
+      student.squad = false;
+      console.log("im in the remove from squad",student)
+      buildList();
+      displayStudentCard(student);
+    }
   }
 
   popup.querySelector(".closebutton").addEventListener('click', closeStudentCard);
@@ -230,9 +250,12 @@ popup.querySelector(".closebutton").addEventListener('click', closeStudentCard);
 
 // function to add or remove prefect
 function isPrefect(){
+  
   //removeEventListeners();
+  
   if(student.prefect === true){
     student.prefect = false;
+
     
   } else {
     tryToMakeAPrefect(student);
@@ -253,7 +276,7 @@ function expellStudent(){
     alert("you can not be expelled")
 
   }else{
-  removeEventListeners();
+  //removeEventListeners();
   let oneStudent = allStudents.splice(allStudents.indexOf(student), 1)[0];
   expelledStudents.push(oneStudent);
   console.log("i expelled a student");
@@ -265,24 +288,14 @@ function expellStudent(){
   }
 }
 
-
-
- 
-
-// console.log(allStudents);
-// console.log(expelledStudents );
-
-  
-
-
-
 //------------------close pop up------------------------
 
 
   function closeStudentCard(){
+    console.log("CLOSE STUDENTC")
   popup.classList.add("hide");
   popup.querySelector("#dialog").classList = "";
-  
+  removeEventListeners();
   // popup.querySelector(".closebutton").removeEventListener("click", closeStudentCard());
   }
 }
@@ -486,10 +499,12 @@ function triggerButtons(){
   }
 
   function filterBySquad(){
-    document.querySelector("[data-filter=squad]").classList.add("active");
-    //displayList(globalObject.squad);
-    buildList();
-    console.log(globalObject.squad);
+    //document.querySelector("[data-filter=squad]").classList.add("active");
+    globalObject.squad = allStudents.filter(student => student.squad);
+
+    displayList(globalObject.squad);
+    //buildList();
+    console.log("filterBySquad @@@@@@@@",globalObject.squad);
   }
 function showExpelled(){
   displayList(expelledStudents);
@@ -630,5 +645,4 @@ function liveSearch() {
       }
     });
   }
-  
   
