@@ -230,9 +230,9 @@ function displayStudentCard(student){
       document.querySelector("#noSquad").classList.add("hide");
       document.querySelector("#noSquad .closebutton").removeEventListener("click", closeDialog);
         }
-
+        displayStudentCard(student);
       buildList();
-      displayStudentCard(student);
+   
     }
 
     function removeFromSquad(){
