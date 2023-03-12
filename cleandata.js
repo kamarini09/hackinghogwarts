@@ -386,7 +386,7 @@ function putImage(lastname, firstname){
    
     return `images/${lastname.substring(lastname.indexOf("-") +1 ).toLowerCase()}_${firstname.charAt(0).toLowerCase()}.png`
   }else if(firstname === "Leanne"){
-    return `images/${lastname.toLowerCase()}_${firstname[0].toLowerCase()}.png`
+    return `${firstname}.png`
   }
   else {
     // console.log(`images/${lastname.toLowerCase()}_${firstname[0].toLowerCase()}.png`);
