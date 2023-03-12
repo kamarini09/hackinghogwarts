@@ -537,6 +537,8 @@ function triggerButtons(){
     //buildList();
     console.log("filterBySquad @@@@@@@@",globalObject.squad);
   }
+
+
 function showExpelled(){
   displayList(expelledStudents);
   document.querySelector(".list-length span").textContent = expelledStudents.length;
@@ -619,6 +621,7 @@ function liveSearch() {
     studentRow[i].classList.add("hidden");
   }
   }}
+//--------------------hacking--------------------------
 
   function hackTheSystem(){
     console.log("hacked!");
