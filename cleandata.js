@@ -109,7 +109,7 @@ function displayStudent(student) {
   clone.querySelector("[data-field=firstName]").textContent = student.firstname;
   clone.querySelector("[data-field=lastName]").textContent = student.lastname;
 
-  clone.querySelector("#blood-status-icon").src = `images/icon-${student.bloodstatus}.svg`;
+  clone.querySelector("#blood-status-icon").src = `images/icon-${student.bloodstatus.toLowerCase()}.svg`;
    
   if (student.squad) {
     clone.querySelector("#squad-icon").classList.remove("hide");  
