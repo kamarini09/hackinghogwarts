@@ -383,7 +383,7 @@ function putImage(lastname, firstname){
   
   }
   else if(lastname.includes('-')){
-    return `images/${lastname.substring(lastname.indexOf("-") +1 )}_${firstname.charAt(0).toLowerCase()}.png`
+    return `images/${lastname.substring(lastname.indexOf("-") +1 ).toLowerCase()}_${firstname.charAt(0).toLowerCase()}.png`
   }
   else {
   return `images/${lastname.toLowerCase()}_${firstname[0].toLowerCase()}.png`
