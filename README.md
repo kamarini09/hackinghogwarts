@@ -4,18 +4,15 @@
 
 <p>This project involves building a system to help the administrators at Hogwarts School of Witchcraft and Wizardry handle student lists. It is a practical example of how to use JavaScript to solve a real-world problem and is designed to consolidate the knowledge gained throughout the theme.
 
-<h3>User Requirements </h3>
+<h3>Tasks for the assignment  </h3>
 <br>
 
-The solution should allow administrators to:
+- <strong>Split</strong> full names into first, middle, last, and optional nicknames.
 
-<ul>
-<li>View a list of students, including their first, middle, and last names, and sort/filter them by name or house.
-<li>Search for a student by first or last name.
-<li>View details about a student, including their photo, house crest and colors, blood-status, and whether they are a prefect or part of the inquisitorial squad.
-<li>Expel a student, removing them from the list and adding them to a separate list of expelled students.
-<li>Appoint two students from each house as prefects and revoke their prefect status.
-<li>Implement racial profiling by adding "blood-status" to each student based on family names.
-<li>Infiltrate the system by adding yourself as a student, removing students from the inquisitorial squad, and messing up the pure-blood algorithm.
-
-</ul>
+- <strong>Clean</strong> data to remove unwanted characters and format inconsistencies.
+- <strong>Sort</strong>, <strong>filter</strong> and <strong>search</strong> students base on certain properties (eg house, bloodstatus, surname)
+- <strong>Display</strong> details about students in a pop-up.
+- <strong>Expel</strong> removing them from the list and adding them to a separate list of expelled students.
+- <strong>Appoint</strong> two students from each house as prefects and revoke their prefect status.
+- <strong>Implement</strong> racial profiling by adding "blood-status" to each student based on family names.
+- <strong>Infiltrate</strong> the system by adding myself as a student, removing students from the inquisitorial squad, and messing up the pure-blood algorithm.
