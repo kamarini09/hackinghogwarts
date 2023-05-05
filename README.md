@@ -2,7 +2,9 @@
 
 This is a final assignment for learning vanilla JavaScript. It involves building a system to help the administrators at Hogwarts School of Witchcraft and Wizardry handle student lists, starting with the infamous class of 1991.
 
-User Requirements
+<strong>User Requirements </strong>
+<br>
+
 The solution should allow administrators to:
 
 View a list of students, including their first, middle, and last names, and sort/filter them by name or house.
