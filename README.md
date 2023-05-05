@@ -1,4 +1,4 @@
-<strong>Hacked Hogwarts Student List</strong>
+<h1>Hacked Hogwarts Student List</h1>
 
 This is a final assignment for learning vanilla JavaScript. It involves building a system to help the administrators at Hogwarts School of Witchcraft and Wizardry handle student lists, starting with the infamous class of 1991.
 
