@@ -4,10 +4,10 @@
 
 <p>This project involves building a system to help the administrators at Hogwarts School of Witchcraft and Wizardry handle student lists. It is a practical example of how to use JavaScript to solve a real-world problem and is designed to consolidate the knowledge gained throughout the theme.
 
-<strong>User Requirements </strong>
+<h3>User Requirements
 <br>
 
-The solution should allow administrators to:
+<h5>The solution should allow administrators to:
 
 <ul>
 <li>View a list of students, including their first, middle, and last names, and sort/filter them by name or house.
