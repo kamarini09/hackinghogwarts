@@ -7,7 +7,7 @@
 <h3>User Requirements
 <br>
 
-<h5>The solution should allow administrators to:
+The solution should allow administrators to:
 
 <ul>
 <li>View a list of students, including their first, middle, and last names, and sort/filter them by name or house.
