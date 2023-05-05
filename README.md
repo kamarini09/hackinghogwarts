@@ -1,6 +1,8 @@
 <h1>Hacked Hogwarts Student List</h1>
 
-This is a final assignment for learning vanilla JavaScript. It involves building a system to help the administrators at Hogwarts School of Witchcraft and Wizardry handle student lists, starting with the infamous class of 1991.
+<p>This is a final assignment of the Just JavaScript theme at KEA.The purpose was to code in Vanilla JavaScript so we learn the basics,starting from the fundamental concepts and building up to more complex topics. It covers topics such as variables, data types, operators, functions, loops, and objects.  By the end of the theme, students should have a good understanding of JavaScript and be able to build basic web applications and interact with APIs.
+
+<p>This project involves building a system to help the administrators at Hogwarts School of Witchcraft and Wizardry handle student lists. It is a practical example of how to use JavaScript to solve a real-world problem and is designed to consolidate the knowledge gained throughout the theme.
 
 <strong>User Requirements </strong>
 <br>
